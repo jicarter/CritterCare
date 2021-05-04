@@ -49,6 +49,8 @@ CREATE TABLE [Critter] (
   [CreateDateTime] datetime NOT NULL,
   [Sex] nvarchar(255) NOT NULL,
   [UserId] integer NOT NULL,
+  [Notes] nvarchar(550) NOT NULL,
+
 
   CONSTRAINT [FK_Critter_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
   
