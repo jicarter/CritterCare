@@ -7,6 +7,7 @@ const UserProfile = () => {
     const { getUserProfileById } = useContext(UserProfileContext);
     const [profile, setProfile] = useState([]);
     const history = useHistory();
+    const { id } = useParams();
 
     useEffect(() => {
         getUserProfileById().then(setProfile);
@@ -15,37 +16,51 @@ const UserProfile = () => {
 
 
     return (
-        <>
-            <div className="container pt-4">
-                <div className="row justify-content-center">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>First Name Last Name</th>
-                                <th>Display Name</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-
-                                <tr key={p.id}>
-                                    <td>{p.firstName} {p.lastName}</td>
-                                    <td>{p.displayName}</td>
-                                    <td>{p.userType.name}</td>
-                                    <td>
-                                        <Button onClick={() => history.push(`/userprofile/edit/${p.id}`)}>Edit</Button>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
-        </>
-    )
-
-}
+        <div className="container">
+            <Card>
+                <CardBody>
+                    <Row>
+                        <Col>
+                            <h2>{profile.displayName}</h2>
+                            <h5>{profile.fullName}</h5>
+                            <br />
+                            <Row>
+                                <Col lg="6">
+                                    <h5>Email:</h5>
+                                    <p>{profile.email}</p>
+                                </Col>
+                                <Col md="6" lg="4">
+                                    <h5>Account Created:</h5>
+                                    <p>
+                                        {
+                                            new Date(profile.createDateTime)
+                                                .toLocaleString("en-US")
+                                                .split(", ")[0]
+                                        }
+                                    </p>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                </CardBody>
+                <CardFooter>
+                    <Row>
+                        <Col>
+                            <div style={{ float: "right" }}>
+                                <Button
+                                    onClick={() =>
+                                        history.push(`/welcome`)
+                                    }
+                                >
+                                    Back
+                                </Button>
+                            </div>
+                        </Col>
+                    </Row>
+                </CardFooter>
+            </Card>
+        </div>
+    );
+};
 
 export default UserProfile;

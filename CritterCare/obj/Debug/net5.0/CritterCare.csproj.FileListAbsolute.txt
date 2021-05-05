@@ -36,3 +36,10 @@ C:\Users\jorda\workspace\CritterCare\CritterCare\obj\Debug\net5.0\CritterCare.dl
 C:\Users\jorda\workspace\CritterCare\CritterCare\obj\Debug\net5.0\ref\CritterCare.dll
 C:\Users\jorda\workspace\CritterCare\CritterCare\obj\Debug\net5.0\CritterCare.pdb
 C:\Users\jorda\workspace\CritterCare\CritterCare\obj\Debug\net5.0\CritterCare.genruntimeconfig.cache
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\jorda\workspace\CritterCare\CritterCare\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll

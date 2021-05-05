@@ -9,5 +9,9 @@ namespace CritterCare.Repositories
     public interface IFoodRepository
     {
         void AddFood(Food food);
+        void DeleteFood(int Id);
+        List<Food> GetAllFood();
+        Food GetFoodById(int id);
+        void UpdateFood(Food food);
     }
 }

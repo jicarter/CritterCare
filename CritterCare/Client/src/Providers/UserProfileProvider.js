@@ -7,7 +7,7 @@ import { useHistory } from "react-router";
 export const UserProfileContext = createContext();
 
 export function UserProfileProvider(props) {
-  const apiUrl = "/api/userprofile";
+  const apiUrl = "/api/userProfile";
   const history = useHistory();
 
   const userProfile = sessionStorage.getItem("userProfile");
@@ -75,7 +75,7 @@ export function UserProfileProvider(props) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(userProfile)
-      }).then(resp => resp.json()));
+      }).then((resp) => resp.json()));
   };
 
  
@@ -94,7 +94,7 @@ export function UserProfileProvider(props) {
  
 
   return (
-    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getUserProfileById, getDeactivatedUserProfiles }}>
+    <UserProfileContext.Provider value={{ isLoggedIn, login, logout, register, getToken, getUserProfile, getUserProfileById }}>
       {isFirebaseReady
         ? props.children
         : <Spinner className="app-spinner dark"/>}

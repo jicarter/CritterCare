@@ -8,7 +8,7 @@ USE [CritterCare]
 GO
 
 
-DROP TABLE IF EXISTS [User];
+DROP TABLE IF EXISTS [UserProfile];
 DROP TABLE IF EXISTS [Critter];
 DROP TABLE IF EXISTS [Food];
 DROP TABLE IF EXISTS [Medicine];
@@ -21,7 +21,7 @@ GO
 
 
 
-CREATE TABLE [User] (
+CREATE TABLE [UserProfile] (
   [Id] integer PRIMARY KEY IDENTITY,
   [FirebaseUserId] NVARCHAR(28) NOT NULL,
   [DisplayName] nvarchar(50) NOT NULL,
@@ -48,18 +48,19 @@ CREATE TABLE [Critter] (
   [ImageLocation] nvarchar(255),
   [CreateDateTime] datetime NOT NULL,
   [Sex] nvarchar(255) NOT NULL,
-  [UserId] integer NOT NULL,
+  [UserProfileId] integer NOT NULL,
   [Notes] nvarchar(550) NOT NULL,
 
 
-  CONSTRAINT [FK_Critter_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
+  CONSTRAINT [FK_Critter_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
   
 )
 
 CREATE TABLE [Food] (
 [Id] integer PRIMARY KEY IDENTITY,
 [Type] nvarchar(255) NOT NULL,
-[Details] text NOT NULL
+[Details] text NOT NULL,
+
 
 )
 
@@ -68,8 +69,8 @@ CREATE TABLE [Medicine] (
   [Type] nvarchar(255) NOT NULL,
   [Use] text NOT NULL,
   [Details] text NOT NULL,
-  [CreateDateTime] datetime NOT NULL
-
+  [CreateDateTime] datetime NOT NULL,
+  
 )
 
 CREATE TABLE [CritterFood] (
@@ -102,10 +103,10 @@ CREATE TABLE [Expenses] (
   [Store] nvarchar(255),
   [Receipt] nvarchar(255) NOT NULL,
   [CategoryId] int NOT NULL, 
-  [UserId] integer NOT NULL,
+  [UserProfileId] integer NOT NULL,
 
   CONSTRAINT [FK_Expenses_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),
-  CONSTRAINT [FK_Expenses_User] FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
+  CONSTRAINT [FK_Expenses_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
 
 )
 GO

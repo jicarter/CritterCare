@@ -4,16 +4,16 @@ GO
 
 
 
-set identity_insert [User] on
-insert into [User] (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, FirebaseUserId) values (1, 'Foo', 'Foo', 'Barington', 'foo@bar.com', '2021-04-28', 'HGIYeMTYpqfdwXpfSw2AUvxnvsC3');
-set identity_insert [User] off
+set identity_insert [UserProfile] on
+insert into [UserProfile] (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, FirebaseUserId) values (1, 'Foo', 'Foo', 'Barington', 'foo@bar.com', '2021-04-28', 'HGIYeMTYpqfdwXpfSw2AUvxnvsC3');
+set identity_insert [UserProfile] off
 
 set identity_insert [Category] on
 insert into Category (Id, [Name]) values (1, 'New Animal'), (2, 'Food'), (3, 'Medicine'), (4, 'Other')
 set identity_insert [Category] off
 
 set identity_insert [Critter] on 
-insert into Critter (Id, Name, Breed, Sex, ImageLocation, Notes, UserId, CreateDateTime) values (1, 'Oinky', 'Pig', 'Male', 'https://unsplash.com/photos/CP9GGy_LkIY', 'Oinky is a pig', 1, '2021-04-04' );
+insert into Critter (Id, Name, Breed, Sex, ImageLocation, Notes, UserProfileId, CreateDateTime) values (1, 'Oinky', 'Pig', 'Male', 'https://unsplash.com/photos/CP9GGy_LkIY', 'Oinky is a pig', 1, '2021-04-04' );
 set identity_insert [Critter] off
 
 set identity_insert [Food] on
@@ -25,5 +25,5 @@ insert into Medicine (Id, Type, Details, CreateDateTime, [Use]) values (1, 'SAFE
 set identity_insert [Medicine] off
 
 set identity_insert [Expenses] on
-insert into Expenses (Id, Name, Price, Store, Receipt, CategoryId, UserId) values (1, 'Things','12.92', 'Amazon','https://unsplash.com/photos/CP9GGy_LkIY', 4, 1 );
+insert into Expenses (Id, Name, Price, Store, Receipt, CategoryId, UserProfileId) values (1, 'Things','12.92', 'Amazon','https://unsplash.com/photos/CP9GGy_LkIY', 4, 1 );
 set identity_insert [Expenses] off

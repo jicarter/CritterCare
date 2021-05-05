@@ -1,13 +1,75 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+main {
+  margin: 2em;
+}
+.app-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -16px;
+  margin-left: -16px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+  line-height: 2rem;
+}
+
+.post p {
+  white-space: pre-wrap;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #ffffff;
+  white-space: pre-wrap;
+}
+
+tr:nth-child(odd) {
+  background-color: #a54e8f;
+  white-space: pre-wrap;
+  color: #000000;
+}
+
+button.btn {
+  margin: 4px;
+}
+
+a.postLink {
+  text-decoration: none;
+  color: #000000;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+    to right top,
+    #d16ba5,
+    #c777b9,
+    #ba83ca,
+    #aa8fd8,
+    #9a9ae1,
+    #839fe3,
+    #6ca4e1,
+    #57a7dc,
+    #32a5ce,
+    #0ca2bb,
+    #039ea6,
+    #219890
+  );
 }

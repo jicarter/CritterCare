@@ -6,11 +6,11 @@ using System.Data.SqlClient;
 
 namespace CritterCare.Repositories
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserProfileRepository : BaseRepository, IUserProfileRepository
     {
-        public UserRepository(IConfiguration configuration) : base(configuration) { }
+        public UserProfileRepository(IConfiguration configuration) : base(configuration) { }
 
-        public User GetByFirebaseUserId(string firebaseUserId)
+        public UserProfile GetByFirebaseUserId(string firebaseUserId)
         {
             using (var conn = Connection)
             {
@@ -20,17 +20,17 @@ namespace CritterCare.Repositories
                     cmd.CommandText = @"
                         SELECT u.Id, u.FirebaseUserId, u.FirstName, u.LastName, u.DisplayName, 
                                u.Email, u.CreateDateTime
-                          FROM User u
-                         WHERE FirebaseUserId = @FirebaseuserId";
+                          FROM UserProfile u
+                         WHERE FirebaseUserId = @FirebaseUserId";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", firebaseUserId);
 
-                    User user = null;
+                    UserProfile UserProfile = null;
 
                     var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        user = new User()
+                        UserProfile = new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
@@ -43,36 +43,36 @@ namespace CritterCare.Repositories
                     }
                     reader.Close();
 
-                    return user;
+                    return UserProfile;
                 }
             }
         }
 
-        public void Add(User user)
+        public void Add(UserProfile UserProfile)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO User (FirebaseUserId, FirstName, LastName, DisplayName, 
+                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, FirstName, LastName, DisplayName, 
                                                                  Email, CreateDateTime)
                                         OUTPUT INSERTED.ID
                                         VALUES (@FirebaseUserId, @FirstName, @LastName, @DisplayName, 
                                                 @Email, @CreateDateTime)";
-                    DbUtils.AddParameter(cmd, "@FirebaseUserId", user.FirebaseUserId);
-                    DbUtils.AddParameter(cmd, "@FirstName", user.FirstName);
-                    DbUtils.AddParameter(cmd, "@LastName", user.LastName);
-                    DbUtils.AddParameter(cmd, "@DisplayName", user.DisplayName);
-                    DbUtils.AddParameter(cmd, "@Email", user.Email);
-                    DbUtils.AddParameter(cmd, "@CreateDateTime", user.CreateDateTime);
+                    DbUtils.AddParameter(cmd, "@FirebaseUserId", UserProfile.FirebaseUserId);
+                    DbUtils.AddParameter(cmd, "@FirstName", UserProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@LastName", UserProfile.LastName);
+                    DbUtils.AddParameter(cmd, "@DisplayName", UserProfile.DisplayName);
+                    DbUtils.AddParameter(cmd, "@Email", UserProfile.Email);
+                    DbUtils.AddParameter(cmd, "@CreateDateTime", UserProfile.CreateDateTime);
 
-                    user.Id = (int)cmd.ExecuteScalar();
+                    UserProfile.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
 
-        public List<User> GetUsers()
+        public List<UserProfile> GetUserProfiles()
         {
             using (var conn = Connection)
             {
@@ -81,17 +81,17 @@ namespace CritterCare.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT u.id, u.FirstName, u.LastName, u.DisplayName, u.Email,
-                              u.CreateDateTime,
-                        FROM User u
+                              u.CreateDateTime
+                        FROM UserProfile u
                               ORDER BY u.DisplayName ASC
                     ";
 
                     SqlDataReader reader = cmd.ExecuteReader();
-                    List<User> users = new List<User>();
+                    List<UserProfile> UserProfiles = new List<UserProfile>();
 
                     while (reader.Read())
                     {
-                        User user = new User
+                        UserProfile UserProfile = new UserProfile
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
@@ -102,16 +102,16 @@ namespace CritterCare.Repositories
                             
                         };
 
-                        users.Add(user);
+                        UserProfiles.Add(UserProfile);
                     }
 
                     reader.Close();
-                    return users;
+                    return UserProfiles;
                 }
             }
         }
 
-        public User GetUserById(int id)
+        public UserProfile GetUserProfileById(int id)
         {
             using (var conn = Connection)
             {
@@ -122,17 +122,17 @@ namespace CritterCare.Repositories
                        SELECT Id, FirstName, LastName, DisplayName, Email,
                               CreateDateTime
                               
-                         FROM [User] 
+                         FROM [UserProfile] 
                               WHERE Id = @Id";
 
                     cmd.Parameters.AddWithValue("@Id", id);
 
-                    User user = null;
+                    UserProfile UserProfile = null;
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        user = new User()
+                        UserProfile = new UserProfile()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Email = reader.GetString(reader.GetOrdinal("Email")),
@@ -144,7 +144,7 @@ namespace CritterCare.Repositories
                     }
 
                     reader.Close();
-                    return user;
+                    return UserProfile;
                 }
             }
         }
