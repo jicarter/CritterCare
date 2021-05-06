@@ -115,10 +115,7 @@ namespace CritterCare.Repositories
             }
         }
 
-        /// <summary>
-        /// Allows user to edit a food.
-        /// </summary>
-        /// <param name="food">The selected food object to be edited.</param>
+        
         public void UpdateFood(Food food)
         {
             using (var conn = Connection)

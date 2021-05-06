@@ -22,14 +22,14 @@ namespace CritterCare.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Medicine ([Type], Details, UserId)
+                    INSERT INTO Medicine ([Type], Details, UserProfileId)
                     OUTPUT INSERTED.ID
-                    VALUES (@[Type], @Details, @UserId);
+                    VALUES (@[Type], @Details, @UserProfileId);
                     ";
 
                     cmd.Parameters.AddWithValue("@[Type]", Medicine.Type);
                     cmd.Parameters.AddWithValue("@[Details]", Medicine.Details);
-                    cmd.Parameters.AddWithValue("@UserId", Medicine.UserId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", Medicine.UserProfileId);
                     
                     int newlyCreatedId = (int)cmd.ExecuteScalar();
 
@@ -88,7 +88,7 @@ namespace CritterCare.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, [Type], Details, UserId
+                    cmd.CommandText = @"SELECT Id, [Type], Details, UserProfileId
                                         FROM Medicine 
                                         ORDER BY [Type]";
                     var reader = cmd.ExecuteReader();
@@ -102,7 +102,7 @@ namespace CritterCare.Repositories
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Type = reader.GetString(reader.GetOrdinal("Type")),
                             Details = reader.GetString(reader.GetOrdinal("Details")),
-                            UserId = reader.GetInt32(reader.GetOrdinal("UserId"))
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
                         });
                     }
 
@@ -121,7 +121,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Type, Details, UserId 
+                    SELECT Id, Type, Details, UserProfileId 
                     FROM Medicine
                     WHERE Id = @id
                     ";
@@ -139,7 +139,7 @@ namespace CritterCare.Repositories
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Type = reader.GetString(reader.GetOrdinal("Type")),
                             Details = reader.GetString(reader.GetOrdinal("Details")),
-                            UserId = reader.GetInt32(reader.GetOrdinal("UserId"))
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
                         };
                     }
 
@@ -165,14 +165,14 @@ namespace CritterCare.Repositories
                     cmd.Parameters.AddWithValue("@Id", Medicine.Id);
                     cmd.Parameters.AddWithValue("@[Type]", Medicine.Type);
                     cmd.Parameters.AddWithValue("@[Details]", Medicine.Details);
-                    cmd.Parameters.AddWithValue("@UserId", Medicine.UserId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", Medicine.UserProfileId);
 
                     cmd.ExecuteNonQuery();
                 }
             }
         }
 
-        public List<Medicine> GetMedsByUserId(int userId)
+        public List<Medicine> GetMedsByUserProfileId(int UserProfileId)
         {
             using (var conn = Connection)
             {
@@ -180,14 +180,14 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Type, Details, UserId 
+                    SELECT Id, Type, Details, UserProfileId 
                     FROM Medicine m
-                    LEFT JOIN UserProfile up ON m.UserId = up.Id
-                    WHERE m.UserId = @id
+                    LEFT JOIN UserProfile up ON m.UserProfileId = up.Id
+                    WHERE m.UserProfileId = @id
                     ORDER BY [Type]
                     ";
 
-                    cmd.Parameters.AddWithValue("id", userId);
+                    cmd.Parameters.AddWithValue("id", UserProfileId);
 
                     var reader = cmd.ExecuteReader();
 
@@ -212,7 +212,7 @@ namespace CritterCare.Repositories
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                 Type = reader.GetString(reader.GetOrdinal("Type")),
                 Details = reader.GetString(reader.GetOrdinal("Details")),
-                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
                 
             };
         }

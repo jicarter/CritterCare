@@ -16,7 +16,7 @@ namespace CritterCare.Models
         [MaxLength(255)]
         public string Image { get; set; }
         public string Notes { get; set; }
-        public int UserId { get; set; }
+        public int UserProfileId { get; set; }
 
     }
 }

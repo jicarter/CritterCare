@@ -12,7 +12,7 @@ namespace CritterCare.Repositories
         void DeleteMedicine(int id);
         List<Medicine> GetAllMeds();
         Medicine GetMedicineById(int id);
-        List<Medicine> GetMedsByUserId(int userId);
+        List<Medicine> GetMedsByUserProfileId(int userId);
         void UpdateMedicine(Medicine Medicine);
     }
 }

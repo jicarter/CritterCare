@@ -60,9 +60,9 @@ namespace CritterCare.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, Name, Breed, Sex, Image, Notes, UserId 
+                    cmd.CommandText = @"SELECT Id, Name, Breed, Sex, Image, Notes, UserProfileId 
                                         FROM Critter 
-                                        WHERE UserId = @userId 
+                                        WHERE UserProfileId = @UserProfileId 
                                         ORDER BY [Breed]";
                     var reader = cmd.ExecuteReader();
 
@@ -78,7 +78,7 @@ namespace CritterCare.Repositories
                             Sex = reader.GetString(reader.GetOrdinal("Sex")),
                             Image = reader.GetString(reader.GetOrdinal("Image")),
                             Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                            UserId = reader.GetInt32(reader.GetOrdinal("UserId"))
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
                         });
                     }
 
@@ -97,7 +97,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Name, Breed, Sex, Image, Notes, UserId FROM Critter
+                    SELECT Id, Name, Breed, Sex, Image, Notes, UserProfileId FROM Critter
                     WHERE Id = @id
                     ";
 
@@ -117,7 +117,7 @@ namespace CritterCare.Repositories
                             Sex = reader.GetString(reader.GetOrdinal("Sex")),
                             Image = reader.GetString(reader.GetOrdinal("Image")),
                             Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                            UserId = reader.GetInt32(reader.GetOrdinal("UserId"))
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
                         };
                     }
 

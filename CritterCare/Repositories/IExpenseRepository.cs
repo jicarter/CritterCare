@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace CritterCare.Repositories
 {
-    interface IExpenseRepository
+    public interface IExpenseRepository
     {
         void AddExpense(Expenses Expense);
         void DeleteExpense(int id);
         List<Expenses> GetAllExpenses();
         Expenses GetExpenseById(int id);
+        List<Expenses> GetExpensesByUserProfileId(int UserProfileId);
         void UpdateExpense(Expenses Expense);
     }
 }

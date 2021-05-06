@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CritterCare.Repositories
 {
-    interface ICategoryRepository
+    public interface ICategoryRepository
     {
         void AddCategory(Category category);
         void DeleteCategory(int id);
