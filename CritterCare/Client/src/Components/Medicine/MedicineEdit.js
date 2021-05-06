@@ -14,7 +14,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 const MedicineEdit = () => {
 
-    const { updateMedicine, getMedicineById, getAllMedicine, postId } = useContext(MedicineContext)
+    const { updateMedicine, getMedicineById, getAllMedicine } = useContext(MedicineContext)
 
     const { id } = useParams();
     const [Medicine, setMedicine] = useState({});
@@ -47,7 +47,7 @@ const MedicineEdit = () => {
         const updatedMedicine = {
             ...Medicine
         };
-        console.log(Medicine.postId)
+        
         updatedMedicine.type = type
         updatedMedicine.details = details
 
@@ -59,7 +59,7 @@ const MedicineEdit = () => {
         });
     }
     const cancel = () => {
-        history.push(`/Medicines/${Medicine.postId}`);
+        history.push(`/Medicines/${userProfileId}}`);
     };
 
     if (Medicine === null) {

@@ -5,7 +5,7 @@ GO
 
 
 set identity_insert [UserProfile] on
-insert into [UserProfile] (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, FirebaseUserId) values (1, 'Foo', 'Foo', 'Barington', 'foo@bar.com', '2021-04-28', 'HGIYeMTYpqfdwXpfSw2AUvxnvsC3');
+insert into [UserProfile] (Id, DisplayName, FirstName, LastName, Email, CreateDateTime, FirebaseUserId) values (1, 'Foo', 'Foo', 'Barington', 'foo@bar.com', '2021-04-28', 'Op7EPlLlXhYliakjBEx0UusTNTi2');
 set identity_insert [UserProfile] off
 
 set identity_insert [Category] on
