@@ -180,7 +180,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Type, Details, UserProfileId 
+                    SELECT m.Id, Type, Details, UserProfileId 
                     FROM Medicine m
                     LEFT JOIN UserProfile up ON m.UserProfileId = up.Id
                     WHERE m.UserProfileId = @id

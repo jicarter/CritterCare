@@ -8,7 +8,7 @@ namespace CritterCare.Repositories
     {
         void AddCritter(Critter critter);
         void DeleteCritter(int Id);
-        List<Critter> GetAllCritters();
+        List<Critter> GetAllUsersCritters(int userProfileId);
         Critter GetCritterById(int id);
         void UpdateCritter(Critter critter);
     }

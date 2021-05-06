@@ -14,7 +14,7 @@ namespace CritterCare.Models
         public string Sex { get; set; }
         [DataType(DataType.Url)]
         [MaxLength(255)]
-        public string Image { get; set; }
+        public string ImageLocation { get; set; }
         public string Notes { get; set; }
         public int UserProfileId { get; set; }
 

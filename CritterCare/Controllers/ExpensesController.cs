@@ -57,11 +57,11 @@ namespace CritterCare.Controllers
             return NoContent();
         }
 
-        [HttpGet("GetAllExpensessByUserId")]
-        public IActionResult GetAllExpensessByUserId(int id)
+        [HttpGet("GetAllExpensesByUserId")]
+        public IActionResult GetAllExpensesByUserId(int id)
         {
-            var Expensess = _ExpensesRepository.GetExpensesByUserProfileId(id);
-            return Ok(Expensess);
+            var Expenses = _ExpensesRepository.GetExpensesByUserProfileId(id);
+            return Ok(Expenses);
 
         }
 

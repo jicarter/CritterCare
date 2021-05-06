@@ -60,7 +60,7 @@ CREATE TABLE [Food] (
 [Id] integer PRIMARY KEY IDENTITY,
 [Type] nvarchar(255) NOT NULL,
 [Details] text NOT NULL,
-
+[UserProfileId] integer NOT NULL,
 
 )
 
@@ -70,7 +70,7 @@ CREATE TABLE [Medicine] (
   [Use] text NOT NULL,
   [Details] text NOT NULL,
   [CreateDateTime] datetime NOT NULL,
-  
+  [UserProfileId] integer NOT NULL,
 )
 
 CREATE TABLE [CritterFood] (
@@ -78,7 +78,7 @@ CREATE TABLE [CritterFood] (
   [CritterId] integer NOT NULL,
   [FoodId] integer NOT NULL,
   [Notes] text NOT NULL,
-  [Current] bit DEFAULT 1 NOT NULL, 
+  
   
   CONSTRAINT [FK_CritterFood_Critter] FOREIGN KEY ([CritterId]) REFERENCES [Critter] ([Id]),
   CONSTRAINT [FK_CritterFood_Food] FOREIGN KEY ([FoodId]) REFERENCES [Food] ([Id])
@@ -89,7 +89,7 @@ CREATE TABLE [CritterMeds] (
   [CritterId] integer NOT NULL,
   [MedsId] integer NOT NULL,
   [Notes] text NOT NULL,
-  [Current] bit DEFAULT 1 NOT NULL,
+ 
 
   CONSTRAINT [FK_CritterMeds_Critter] FOREIGN KEY ([CritterId]) REFERENCES [Critter] ([Id]),
   CONSTRAINT [FK_CritterMeds_Medicine] FOREIGN KEY ([MedsId]) REFERENCES [Medicine] ([Id])

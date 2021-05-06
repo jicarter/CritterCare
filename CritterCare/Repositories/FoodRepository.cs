@@ -3,6 +3,7 @@ using CritterCare.Utils;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Food(Type, Details)
+                        INSERT INTO Food([Type], Details)
                         OUTPUT INSERTED.ID
                         VALUES (@type)";
 
@@ -58,7 +59,9 @@ namespace CritterCare.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Type FROM Food ORDER BY [Type]";
+                    cmd.CommandText = @"SELECT Id, [Type], Details 
+                                        FROM Food 
+                                        ORDER BY [Type]";
                     var reader = cmd.ExecuteReader();
 
                     var categories = new List<Food>();
@@ -88,7 +91,8 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Type FROM Food
+                    SELECT Id, [Type], Details
+                    FROM Food
                     WHERE Id = @id
                     ";
 
@@ -125,7 +129,8 @@ namespace CritterCare.Repositories
                 {
                     cmd.CommandText = @"
                     UPDATE Food
-                       SET Type = @Type
+                       SET Type = @Type,
+                           Details = @Details
                      WHERE Id = @Id";
 
                     cmd.Parameters.AddWithValue("@Type", food.Type);
@@ -134,6 +139,51 @@ namespace CritterCare.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<Food> GetFoodByUserProfileId(int UserProfileId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    SELECT Id, Type, Details, UserProfileId 
+                    FROM Food f
+                    LEFT JOIN UserProfile up ON f.UserProfileId = up.Id
+                    WHERE f.UserProfileId = @id
+                    ORDER BY [Type]
+                    ";
+
+                    cmd.Parameters.AddWithValue("id", UserProfileId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var meds = new List<Food>();
+
+                    while (reader.Read())
+                    {
+                        meds.Add(NewFoodFromReader(reader))
+                         ;
+                    }
+
+                    reader.Close();
+                    return meds;
+                }
+            }
+        }
+
+        private Food NewFoodFromReader(SqlDataReader reader)
+        {
+            return new Food()
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                Type = reader.GetString(reader.GetOrdinal("Type")),
+                Details = reader.GetString(reader.GetOrdinal("Details")),
+                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+
+            };
         }
 
     }

@@ -85,7 +85,7 @@ namespace CritterCare.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Name FROM Category ORDER BY [Name]";
+                    cmd.CommandText = "SELECT Id, [Name] FROM Category ORDER BY [Name]";
                     var reader = cmd.ExecuteReader();
 
                     var categories = new List<Category>();
@@ -114,7 +114,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Name FROM Category
+                    SELECT Id, [Name] FROM Category
                     WHERE Id = @id
                     ";
 
@@ -149,7 +149,7 @@ namespace CritterCare.Repositories
                 {
                     cmd.CommandText = @"
                     UPDATE Category
-                       SET Name = @Name
+                       SET [Name] = @Name
                      WHERE Id = @Id";
 
                     cmd.Parameters.AddWithValue("@Name", category.Name);

@@ -53,17 +53,18 @@ namespace CritterCare.Repositories
             }
         }
 
-        public List<Critter> GetAllCritters()
+        public List<Critter> GetAllUsersCritters(int userProfileId)
         {
             using (var conn = Connection)
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, Name, Breed, Sex, Image, Notes, UserProfileId 
-                                        FROM Critter 
+                    cmd.CommandText = @"SELECT c.Id, [Name], Breed, Sex, [ImageLocation], Notes, UserProfileId 
+                                        FROM Critter c
+                                        LEFT JOIN UserProfile u ON c.UserProfileId = u.Id
                                         WHERE UserProfileId = @UserProfileId 
-                                        ORDER BY [Breed]";
+                                        ";
                     var reader = cmd.ExecuteReader();
 
                     var critters = new List<Critter>();
@@ -76,7 +77,7 @@ namespace CritterCare.Repositories
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
                             Sex = reader.GetString(reader.GetOrdinal("Sex")),
-                            Image = reader.GetString(reader.GetOrdinal("Image")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
                             Notes = reader.GetString(reader.GetOrdinal("Notes")),
                             UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
                         });
@@ -97,7 +98,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, Name, Breed, Sex, Image, Notes, UserProfileId FROM Critter
+                    SELECT Id, Name, Breed, Sex, ImageLocation, Notes, UserProfileId FROM Critter
                     WHERE Id = @id
                     ";
 
@@ -115,7 +116,7 @@ namespace CritterCare.Repositories
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
                             Sex = reader.GetString(reader.GetOrdinal("Sex")),
-                            Image = reader.GetString(reader.GetOrdinal("Image")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
                             Notes = reader.GetString(reader.GetOrdinal("Notes")),
                             UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
                         };
@@ -141,7 +142,7 @@ namespace CritterCare.Repositories
                        SET Name = @Name,
                            Breed = @Breed,
                            Sex = @Sex,
-                           Image = @Image,
+                           ImageLocation = @ImageLocation,
                            Notes = @Notes
                      WHERE Id = @Id
 
@@ -154,7 +155,7 @@ namespace CritterCare.Repositories
                     cmd.Parameters.AddWithValue("@Name", critter.Name);
                     cmd.Parameters.AddWithValue("@Breed", critter.Breed);
                     cmd.Parameters.AddWithValue("@Sex", critter.Sex);
-                    cmd.Parameters.AddWithValue("@Image", critter.Image);
+                    cmd.Parameters.AddWithValue("@ImageLocation", critter.ImageLocation);
                     cmd.Parameters.AddWithValue("@Notes", critter.Notes);
                     cmd.Parameters.AddWithValue("@Id", critter.Id);
 

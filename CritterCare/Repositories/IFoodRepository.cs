@@ -12,6 +12,7 @@ namespace CritterCare.Repositories
         void DeleteFood(int Id);
         List<Food> GetAllFood();
         Food GetFoodById(int id);
+        List<Food> GetFoodByUserProfileId(int UserProfileId);
         void UpdateFood(Food food);
     }
 }

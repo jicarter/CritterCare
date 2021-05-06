@@ -19,10 +19,10 @@ namespace CritterCare.Controllers
             _CritterRepository = critterRepository;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("GetAll/{id}")]
+        public IActionResult GetAllUsersCritters(int id)
         {
-            return Ok(_CritterRepository.GetAllCritters());
+            return Ok(_CritterRepository.GetAllUsersCritters(id));
         }
 
 

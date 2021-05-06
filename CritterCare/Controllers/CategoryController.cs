@@ -19,7 +19,7 @@ namespace CritterCare.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCategories")]
         public IActionResult Get()
         {
             return Ok(_categoryRepository.GetAllCategories());

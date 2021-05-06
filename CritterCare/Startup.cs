@@ -30,6 +30,14 @@ namespace CritterCare
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ICritterRepository, CritterRepository>();
+            services.AddTransient<ICritterFoodRepository, CritterFoodRepository>();
+            services.AddTransient<ICritterMedsRepository, CritterMedsRepository>();
+            services.AddTransient<IExpenseRepository, ExpenseRepository>();
+            services.AddTransient<IFoodRepository, FoodRepository>();
+            services.AddTransient<IMedicineRepository, MedicineRepository>();
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

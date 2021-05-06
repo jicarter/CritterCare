@@ -55,5 +55,13 @@ namespace CritterCare.Controllers
             _foodRepository.DeleteFood(id);
             return NoContent();
         }
+
+        [HttpGet("GetAllFoodByUserId")]
+        public IActionResult GetAllFoodByUserId(int id)
+        {
+            var food = _foodRepository.GetFoodByUserProfileId(id);
+            return Ok(food);
+
+        }
     }
 }
