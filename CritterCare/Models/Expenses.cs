@@ -12,7 +12,7 @@ namespace CritterCare.Models
         public decimal Price { get; set; }
         public string Store { get; set; }
         public string Receipt { get; set; }
-        public int CatergoryId { get; set; }
+        public int CategoryId { get; set; }
         public int UserId { get; set; }
     }
 }

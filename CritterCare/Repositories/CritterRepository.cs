@@ -9,137 +9,162 @@ using System.Collections.Generic;
 
 namespace CritterCare.Repositories
 {
-        
-        public class CritterRepository :  BaseRepository, ICritterRepository
-        {
-            public CritterRepository(IConfiguration configuration) : base(configuration) { }
 
-            public void AddCritter(Critter Critter)
+    public class CritterRepository : BaseRepository, ICritterRepository
+    {
+        public CritterRepository(IConfiguration configuration) : base(configuration) { }
+
+        public void AddCritter(Critter critter)
+        {
+            using (var conn = Connection)
             {
-                using (var conn = Connection)
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                 {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = @"
+                    cmd.CommandText = @"
                         INSERT INTO Critter(Type, Details)
                         OUTPUT INSERTED.ID
                         VALUES (@type)";
 
-                        DbUtils.AddParameter(cmd, "@type", Critter);
+                    DbUtils.AddParameter(cmd, "@type", critter);
 
-                        Critter.Id = (int)cmd.ExecuteScalar();
-                    }
+                    critter.Id = (int)cmd.ExecuteScalar();
                 }
             }
+        }
 
-            public void DeleteCritter(int Id)
+        public void DeleteCritter(int Id)
+        {
+            using (var conn = Connection)
             {
-                using (var conn = Connection)
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                 {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = @"
+                    cmd.CommandText = @"
                     DELETE From Critter
                     WHERE Id = @Id
                     ";
 
-                        DbUtils.AddParameter(cmd, "@Id", Id);
+                    DbUtils.AddParameter(cmd, "@Id", Id);
 
-                        cmd.ExecuteNonQuery();
-                    }
-
+                    cmd.ExecuteNonQuery();
                 }
+
             }
+        }
 
-            public List<Critter> GetAllCritter()
+        public List<Critter> GetAllCritters()
+        {
+            using (var conn = Connection)
             {
-                using (var conn = Connection)
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                 {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                    cmd.CommandText = @"SELECT Id, Name, Breed, Sex, Image, Notes, UserId 
+                                        FROM Critter 
+                                        WHERE UserId = @userId 
+                                        ORDER BY [Breed]";
+                    var reader = cmd.ExecuteReader();
+
+                    var critters = new List<Critter>();
+
+                    while (reader.Read())
                     {
-                        cmd.CommandText = "SELECT Id, Type FROM Critter ORDER BY [Type]";
-                        var reader = cmd.ExecuteReader();
-
-                        var categories = new List<Critter>();
-
-                        while (reader.Read())
+                        critters.Add(new Critter()
                         {
-                            categories.Add(new Critter()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Type = reader.GetString(reader.GetOrdinal("Type")),
-                                Details = reader.GetString(reader.GetOrdinal("Details"))
-                            });
-                        }
-
-                        reader.Close();
-
-                        return categories;
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Breed = reader.GetString(reader.GetOrdinal("Breed")),
+                            Sex = reader.GetString(reader.GetOrdinal("Sex")),
+                            Image = reader.GetString(reader.GetOrdinal("Image")),
+                            Notes = reader.GetString(reader.GetOrdinal("Notes")),
+                            UserId = reader.GetInt32(reader.GetOrdinal("UserId"))
+                        });
                     }
+
+                    reader.Close();
+
+                    return critters;
                 }
             }
+        }
 
-            public Critter GetCritterById(int id)
+        public Critter GetCritterById(int id)
+        {
+            using (var conn = Connection)
             {
-                using (var conn = Connection)
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
                 {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = @"
-                    SELECT Id, Type FROM Critter
+                    cmd.CommandText = @"
+                    SELECT Id, Name, Breed, Sex, Image, Notes, UserId FROM Critter
                     WHERE Id = @id
                     ";
 
 
-                        DbUtils.AddParameter(cmd, "@id", id);
-                        var reader = cmd.ExecuteReader();
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    var reader = cmd.ExecuteReader();
 
-                        Critter Critter = null;
+                    Critter Critter = null;
 
-                        if (reader.Read())
-                        {
-                            Critter = new Critter()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                Type = reader.GetString(reader.GetOrdinal("Type")),
-                                Details = reader.GetString(reader.GetOrdinal("Details"))
-                            };
-                        }
-
-                        reader.Close();
-
-                        return Critter;
-                    }
-                }
-            }
-
-
-            public void UpdateCritter(Critter critter)
-            {
-                using (var conn = Connection)
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
+                    if (reader.Read())
                     {
-                        cmd.CommandText = @"
-                    UPDATE Critter
-                       SET Type = @Type
-                     WHERE Id = @Id";
-
-                        cmd.Parameters.AddWithValue("@Type", critter.Type);
-                        cmd.Parameters.AddWithValue("@Id", critter.Type);
-
-                        cmd.ExecuteNonQuery();
+                        Critter = new Critter()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Breed = reader.GetString(reader.GetOrdinal("Breed")),
+                            Sex = reader.GetString(reader.GetOrdinal("Sex")),
+                            Image = reader.GetString(reader.GetOrdinal("Image")),
+                            Notes = reader.GetString(reader.GetOrdinal("Notes")),
+                            UserId = reader.GetInt32(reader.GetOrdinal("UserId"))
+                        };
                     }
+
+                    reader.Close();
+
+                    return Critter;
                 }
             }
-
         }
-    }
 
+
+        public void UpdateCritter(Critter critter)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE Critter
+                       SET Name = @Name,
+                           Breed = @Breed,
+                           Sex = @Sex,
+                           Image = @Image,
+                           Notes = @Notes
+                     WHERE Id = @Id
+
+
+                    UPDATE CritterMeds
+                        SET MedicineId = @medicineId
+                        WHERE CritterId = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@Name", critter.Name);
+                    cmd.Parameters.AddWithValue("@Breed", critter.Breed);
+                    cmd.Parameters.AddWithValue("@Sex", critter.Sex);
+                    cmd.Parameters.AddWithValue("@Image", critter.Image);
+                    cmd.Parameters.AddWithValue("@Notes", critter.Notes);
+                    cmd.Parameters.AddWithValue("@Id", critter.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+    }
 }
-}
+
+
+
