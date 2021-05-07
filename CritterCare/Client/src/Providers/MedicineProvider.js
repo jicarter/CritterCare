@@ -51,7 +51,7 @@ export const MedicineProvider = (props) => {
 
   const getUserMeds = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetAllMedicinesByUserId${id}`, {
+      fetch(`${apiUrl}/GetAllMedicinesByUserId/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

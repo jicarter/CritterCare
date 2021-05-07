@@ -51,7 +51,7 @@ export const FoodProvider = (props) => {
 
   const getUserFood = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetAllFoodByUserId${id}`, {
+      fetch(`${apiUrl}/GetAllFoodByUserId/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

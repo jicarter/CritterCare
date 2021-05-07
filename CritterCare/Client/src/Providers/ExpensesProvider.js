@@ -51,7 +51,7 @@ export const ExpensesProvider = (props) => {
 
   const getUserExpenses = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetExpensesByUserProfileId${id}`, {
+      fetch(`${apiUrl}/GetExpensesByUserProfileId/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

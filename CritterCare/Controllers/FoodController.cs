@@ -5,9 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using CritterCare.Models;
 using CritterCare.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CritterCare.Controllers
 {
+    
+    [Route("api/[controller]")]
+    [ApiController]
     public class FoodController : Controller
     {
         private readonly IFoodRepository _foodRepository;
@@ -56,7 +60,7 @@ namespace CritterCare.Controllers
             return NoContent();
         }
 
-        [HttpGet("GetAllFoodByUserId")]
+        [HttpGet("GetAllFoodByUserId/{id}")]
         public IActionResult GetAllFoodByUserId(int id)
         {
             var food = _foodRepository.GetFoodByUserProfileId(id);

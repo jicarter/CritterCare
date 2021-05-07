@@ -1,5 +1,6 @@
 ﻿using CritterCare.Models;
 using CritterCare.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace CritterCare.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : Controller

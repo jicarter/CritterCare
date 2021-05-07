@@ -180,15 +180,15 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT m.Id, Type, Details, UserProfileId 
+                    SELECT m.Id, m.[Type], m.Details, m.UserProfileId 
                     FROM Medicine m
                     LEFT JOIN UserProfile up ON m.UserProfileId = up.Id
                     WHERE m.UserProfileId = @id
-                    ORDER BY [Type]
+                    ORDER BY m.[Type]
                     ";
 
-                    cmd.Parameters.AddWithValue("id", UserProfileId);
-
+                    
+                    DbUtils.AddParameter(cmd, "@id", UserProfileId);
                     var reader = cmd.ExecuteReader();
 
                     var meds = new List<Medicine>();

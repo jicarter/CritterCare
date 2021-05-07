@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Button, Card, CardBody, CardFooter, CardHeader } from "reactstrap";
-import { Link, useHistory } from "react-router-dom";
-import { UserProfileContext } from "../../providers/UserProfileProvider";
+import { Button, Card, CardBody, CardFooter, CardHeader, Row, Col } from "reactstrap";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { UserProfileContext } from "../../Providers/UserProfileProvider";
 
-const UserProfile = () => {
+export const UserProfile = () => {
     const { getUserProfileById } = useContext(UserProfileContext);
     const [profile, setProfile] = useState([]);
     const history = useHistory();
@@ -29,16 +29,6 @@ const UserProfile = () => {
                                     <h5>Email:</h5>
                                     <p>{profile.email}</p>
                                 </Col>
-                                <Col md="6" lg="4">
-                                    <h5>Account Created:</h5>
-                                    <p>
-                                        {
-                                            new Date(profile.createDateTime)
-                                                .toLocaleString("en-US")
-                                                .split(", ")[0]
-                                        }
-                                    </p>
-                                </Col>
                             </Row>
                         </Col>
                     </Row>
@@ -49,7 +39,7 @@ const UserProfile = () => {
                             <div style={{ float: "right" }}>
                                 <Button
                                     onClick={() =>
-                                        history.push(`/welcome`)
+                                        history.push(`/`)
                                     }
                                 >
                                     Back

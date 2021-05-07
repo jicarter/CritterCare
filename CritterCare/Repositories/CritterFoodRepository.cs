@@ -68,8 +68,8 @@ namespace CritterCare.Repositories
                     JOIN Medicine m ON m.Id = cm.FoodId
                     WHERE cm.FoodId = @id";
 
-                    cmd.Parameters.AddWithValue("@id", CritterId);
-
+                   
+                    DbUtils.AddParameter(cmd, "@id", CritterId);
                     var reader = cmd.ExecuteReader();
                     var CritterFoods = new List<CritterFood>();
                     while (reader.Read())

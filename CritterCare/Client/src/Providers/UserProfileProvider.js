@@ -7,12 +7,13 @@ import { useHistory } from "react-router";
 export const UserProfileContext = createContext();
 
 export function UserProfileProvider(props) {
-  const apiUrl = "/api/userProfile";
+  const apiUrl = "/api/UserProfile";
   const history = useHistory();
-
+  
   const userProfile = sessionStorage.getItem("userProfile");
+  var currentUser = JSON.parse(userProfile)
   const [isLoggedIn, setIsLoggedIn] = useState(userProfile != null);
-
+  const [profile, setProfile] = useState(userProfile);
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
@@ -82,12 +83,14 @@ export function UserProfileProvider(props) {
 
   const getUserProfileById = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetUserProfileById/${id}`, {
+      fetch(`${apiUrl}/GetUserById/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
       }).then((res) => res.json())
+        .then(setProfile)
+        .then(console.log(profile))
     )
   }
 

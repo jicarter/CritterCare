@@ -12,7 +12,7 @@ import { ExpensesContext } from '../../Providers/ExpensesProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 
-const ExpensesEdit = () => {
+export const ExpensesEdit = () => {
 
     const { updateExpenses, getExpensesById, getUserExpenses } = useContext(ExpensesContext)
 
@@ -80,13 +80,13 @@ const ExpensesEdit = () => {
                         <Form>
                             <FormGroup>
                                 <Label for="name">Name</Label>
-                                <Input id="name" onChange={(e) => setType(e.target.value)} value={name} />
+                                <Input id="name" onChange={(e) => setName(e.target.value)} value={name} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="store">Store</Label>
                                 <Input type="textarea"
                                     id="store"
-                                    onChange={(e) => setDetails(e.target.value)}
+                                    onChange={(e) => setStore(e.target.value)}
                                     value={store}
                                 />
                             </FormGroup>
@@ -94,7 +94,7 @@ const ExpensesEdit = () => {
                                 <Label for="price">Price</Label>
                                 <Input type="textarea"
                                     id="price"
-                                    onChange={(e) => setDetails(e.target.value)}
+                                    onChange={(e) => setPrice(e.target.value)}
                                     value={price}
                                 />
                             </FormGroup>
@@ -102,8 +102,8 @@ const ExpensesEdit = () => {
                                 <Label for="receipt">Receipt</Label>
                                 <Input type="textarea"
                                     id="receipt"
-                                    onChange={(e) => setDetails(e.target.value)}
-                                    value={imageLocation}
+                                    onChange={(e) => setReceipt(e.target.value)}
+                                    value={receipt}
                                 />
                             </FormGroup>
                         </Form>

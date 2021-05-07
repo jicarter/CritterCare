@@ -12,9 +12,9 @@ import { FoodContext } from '../../Providers/FoodProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 
-const FoodEdit = () => {
+export const FoodEdit = () => {
 
-    const { updateFood, getFoodById, getAllFood } = useContext(FoodContext)
+    const { updateFood, getFoodById, getUserFood } = useContext(FoodContext)
 
     const { id } = useParams();
     const [Food, setFood] = useState({});
@@ -74,14 +74,14 @@ const FoodEdit = () => {
                         <Form>
                             <FormGroup>
                                 <Label for="Type">Type</Label>
-                                <Input id="Type" onChange={(e) => setType(e.target.value)} value={Type} />
+                                <Input id="Type" onChange={(e) => setType(e.target.value)} value={type} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="Details">Details</Label>
                                 <Input type="textarea"
                                     id="Details"
                                     onChange={(e) => setDetails(e.target.value)}
-                                    value={Details}
+                                    value={details}
                                     rows="10"
                                 />
                             </FormGroup>

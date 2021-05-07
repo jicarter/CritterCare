@@ -39,25 +39,28 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/critters${currentUser.id}`}>My Critters</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Critter/${currentUser.id}`}>My Critters</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/critter/create`}>New Critter</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Critter/create`}>New Critter</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/food/${currentUser.id}`}>My Critter Food</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Food/${currentUser.id}`}>My Critter Food</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/food/create`}>New Critter Food</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Food/create`}>New Critter Food</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to={`/Medicine/${currentUser.id}`}>My Critter Meds</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/medicine/create`}>New Critter Meds</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Medicine/create`}>New Critter Meds</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/userProfile/${currentUser.id}`}>My Profile</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Expenses/${currentUser.id}`}>Expenses</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={RRNavLink} to={`/UserProfile/${currentUser.id}`}>My Profile</NavLink>
                 </NavItem>
               </>
             }

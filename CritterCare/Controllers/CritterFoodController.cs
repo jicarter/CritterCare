@@ -1,5 +1,6 @@
 ﻿using CritterCare.Models;
 using CritterCare.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CritterCare.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class CritterFoodController : ControllerBase
@@ -22,7 +24,7 @@ namespace CritterCare.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var CritterFood = _CritterFoodRepository.GetMedsByCritterId(id);
+            var CritterFood = _CritterFoodRepository.GetFoodByCritterId(id);
             if (CritterFood == null)
             {
                 return NotFound();

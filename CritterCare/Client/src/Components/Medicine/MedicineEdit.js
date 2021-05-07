@@ -12,9 +12,9 @@ import { MedicineContext } from '../../Providers/MedicineProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 
-const MedicineEdit = () => {
+export const MedicineEdit = () => {
 
-    const { updateMedicine, getMedicineById, getAllMedicine } = useContext(MedicineContext)
+    const { updateMedicine, getMedicineById, getUserMeds } = useContext(MedicineContext)
 
     const { id } = useParams();
     const [Medicine, setMedicine] = useState({});
@@ -59,7 +59,7 @@ const MedicineEdit = () => {
         });
     }
     const cancel = () => {
-        history.push(`/Medicines/${userProfileId}}`);
+        history.push(`/Medicines/${id}}`);
     };
 
     if (Medicine === null) {
@@ -74,14 +74,14 @@ const MedicineEdit = () => {
                         <Form>
                             <FormGroup>
                                 <Label for="Type">Type</Label>
-                                <Input id="Type" onChange={(e) => setType(e.target.value)} value={Type} />
+                                <Input id="Type" onChange={(e) => setType(e.target.value)} value={type} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="Details">Details</Label>
                                 <Input type="textarea"
                                     id="Details"
                                     onChange={(e) => setDetails(e.target.value)}
-                                    value={Details}
+                                    value={details}
                                     rows="10"
                                 />
                             </FormGroup>

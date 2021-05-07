@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { UserProfileContext } from './UserProfileProvider';
 
 export const CritterContext = React.createContext();
-
+const userProfile = sessionStorage.getItem("userProfile");
+  var currentUser = JSON.parse(userProfile)
 export const CritterProvider = (props) => {
   const apiUrl = "/api/Critter";
   const [Critter, setCritter] = useState([]);
@@ -51,14 +52,15 @@ export const CritterProvider = (props) => {
 
   const getUserCritter = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetAllUsersCritters${id}`, {
+      fetch(`${apiUrl}/GetAllUsersCritters/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         }
       })
         .then((res) => res.json()))
-        .then(setCritter);
+        .then(setCritter)
+        .then(console.log(Critter));
   }
 
   const deleteCritter = (id) => {

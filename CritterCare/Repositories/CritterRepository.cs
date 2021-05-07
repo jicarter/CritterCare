@@ -60,11 +60,12 @@ namespace CritterCare.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT c.Id, [Name], Breed, Sex, [ImageLocation], Notes, UserProfileId 
+                    cmd.CommandText = @"SELECT c.Id, c.[Name], c.Breed, c.Sex, c.[ImageLocation], c.Notes, c.UserProfileId 
                                         FROM Critter c
                                         LEFT JOIN UserProfile u ON c.UserProfileId = u.Id
-                                        WHERE UserProfileId = @UserProfileId 
+                                        WHERE c.UserProfileId = @userProfileId 
                                         ";
+                    DbUtils.AddParameter(cmd, "@userProfileId", userProfileId);
                     var reader = cmd.ExecuteReader();
 
                     var critters = new List<Critter>();

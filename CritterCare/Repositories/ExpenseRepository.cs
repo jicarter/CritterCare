@@ -71,6 +71,7 @@ namespace CritterCare.Repositories
                     cmd.CommandText = @"SELECT Id, [Name], Price, Store, Receipt, CategoryId, UserProfileId 
                                         FROM Expenses 
                                         ORDER BY [Name]";
+
                     var reader = cmd.ExecuteReader();
 
                     var expenses = new List<Expenses>();
@@ -176,7 +177,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, [Name], Price, Store, Receipt, CategoryId, UserProfileId
+                    SELECT e.Id, e.[Name], e.Price, e.Store, e.Receipt, e.CategoryId, e.UserProfileId
                     FROM Expenses e
                     LEFT JOIN UserProfile up ON e.UserProfileId = up.Id
                     LEFT JOIN Category c ON e.CategoryId = c.Id 
@@ -184,8 +185,8 @@ namespace CritterCare.Repositories
                     ORDER BY [Name]
                     ";
 
-                    cmd.Parameters.AddWithValue("id", UserProfileId);
-
+                    
+                    DbUtils.AddParameter(cmd, "@id", UserProfileId);
                     var reader = cmd.ExecuteReader();
 
                     var meds = new List<Expenses>();
@@ -208,7 +209,7 @@ namespace CritterCare.Repositories
             {
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                 Name = reader.GetString(reader.GetOrdinal("Name")),
-                Price = reader.GetInt32(reader.GetOrdinal("Price")),
+                Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                 Store = reader.GetString(reader.GetOrdinal("Store")),
                 Receipt = reader.GetString(reader.GetOrdinal("Receipt")),
                 CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),

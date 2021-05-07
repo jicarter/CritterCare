@@ -1,5 +1,6 @@
 ﻿using CritterCare.Models;
 using CritterCare.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CritterCare.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CritterController : ControllerBase
@@ -19,7 +21,7 @@ namespace CritterCare.Controllers
             _CritterRepository = critterRepository;
         }
 
-        [HttpGet("GetAll/{id}")]
+        [HttpGet("GetAllUsersCritters/{id}")]
         public IActionResult GetAllUsersCritters(int id)
         {
             return Ok(_CritterRepository.GetAllUsersCritters(id));

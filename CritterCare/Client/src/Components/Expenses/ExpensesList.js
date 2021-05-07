@@ -18,8 +18,10 @@ export const ExpensesList = () => {
 
 
   return (
+    
     <div className="container">
       <Link to={`/`}>Home</Link>
+    <Button color="info" onClick={() => history.push(`/Expenses/add/`)}>Add Expenses</Button>
       <div className="row justify-content-center">
         <div className="cards-column">
           {Expenses.map((Expenses) => (

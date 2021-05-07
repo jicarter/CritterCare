@@ -12,7 +12,7 @@ import { CritterContext } from '../../Providers/CritterProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 
-const CritterEdit = () => {
+export const CritterEdit = () => {
 
     const { updateCritter, getCritterById, getUserCritter } = useContext(CritterContext)
 
@@ -83,13 +83,13 @@ const CritterEdit = () => {
                         <Form>
                             <FormGroup>
                                 <Label for="name">Name</Label>
-                                <Input id="name" onChange={(e) => setType(e.target.value)} value={name} />
+                                <Input id="name" onChange={(e) => setName(e.target.value)} value={name} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="breed">Breed</Label>
                                 <Input type="textarea"
                                     id="breed"
-                                    onChange={(e) => setDetails(e.target.value)}
+                                    onChange={(e) => setBreed(e.target.value)}
                                     value={breed}
                                 />
                             </FormGroup>
@@ -97,7 +97,7 @@ const CritterEdit = () => {
                                 <Label for="sex">Sex</Label>
                                 <Input type="textarea"
                                     id="sex"
-                                    onChange={(e) => setDetails(e.target.value)}
+                                    onChange={(e) => setSex(e.target.value)}
                                     value={sex}
                                 />
                             </FormGroup>
@@ -105,7 +105,7 @@ const CritterEdit = () => {
                                 <Label for="image">Image</Label>
                                 <Input type="textarea"
                                     id="image"
-                                    onChange={(e) => setDetails(e.target.value)}
+                                    onChange={(e) => setImageLocation(e.target.value)}
                                     value={imageLocation}
                                 />
                             </FormGroup>
@@ -113,7 +113,7 @@ const CritterEdit = () => {
                                 <Label for="notes">Notes</Label>
                                 <Input type="textarea"
                                     id="notes"
-                                    onChange={(e) => setDetails(e.target.value)}
+                                    onChange={(e) => setNotes(e.target.value)}
                                     value={notes}
                                     rows="10"
                                 />

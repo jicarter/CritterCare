@@ -1,5 +1,6 @@
 ﻿using CritterCare.Models;
 using CritterCare.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CritterCare.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class ExpensesController : ControllerBase
@@ -57,7 +59,7 @@ namespace CritterCare.Controllers
             return NoContent();
         }
 
-        [HttpGet("GetAllExpensesByUserId")]
+        [HttpGet("GetAllExpensesByUserId/{id}")]
         public IActionResult GetAllExpensesByUserId(int id)
         {
             var Expenses = _ExpensesRepository.GetExpensesByUserProfileId(id);
