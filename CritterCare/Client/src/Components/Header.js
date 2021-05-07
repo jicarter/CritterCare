@@ -51,7 +51,7 @@ export default function Header() {
                   <NavLink tag={RRNavLink} to={`/food/create`}>New Critter Food</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to={`/medicine/${currentUser.id}`}>My Critter Meds</NavLink>
+                  <NavLink tag={RRNavLink} to={`/Medicine/${currentUser.id}`}>My Critter Meds</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to={`/medicine/create`}>New Critter Meds</NavLink>

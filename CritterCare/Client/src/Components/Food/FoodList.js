@@ -1,19 +1,19 @@
 import React, { useContext, useEffect } from "react";
-import { MedicineContext } from "../../Providers/MedicineProvider";
-import Medicine from  "./Medicine";
+import { FoodContext } from "../../Providers/FoodProvider";
+import Food from  "./Food";
 import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
-export const MedicineList = () => {
-  const { Medicine, setMedicine, getUserMeds} = useContext(MedicineContext);
+export const FoodList = () => {
+  const { Food, setFood, getUserFood} = useContext(FoodContext);
   const history = useHistory();
   const { id } = useParams();
 
   
   useEffect(() => {
-    getUserMeds(id)
+    getUserFood(id)
     
-    .then(console.log(Medicine))
+    .then(console.log(Food))
   }, []);
 
 
@@ -22,8 +22,8 @@ export const MedicineList = () => {
       <Link to={`/`}>Home</Link>
       <div className="row justify-content-center">
         <div className="cards-column">
-          {Medicine.map((Medicine) => (
-            <Medicine key={Medicine.id} Medicine={Medicine} />
+          {Food.map((Food) => (
+            <Food key={Food.id} Food={Food} />
           ))}
         </div>
       </div>
@@ -31,4 +31,4 @@ export const MedicineList = () => {
   )
 }
 
-export default MedicineList;
+export default FoodList;

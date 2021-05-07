@@ -3,14 +3,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { UserProfileProvider } from "./Providers/UserProfileProvider";
 import Header from "./Components/Header";
 import ApplicationViews from "./Components/ApplicationViews";
-
+import { MedicineProvider } from './Providers/MedicineProvider';
 
 function App() {
   return (
     <Router>
       <UserProfileProvider>
-        <Header />
-        <ApplicationViews />
+        <MedicineProvider>
+          <Header />
+          <ApplicationViews />
+        </MedicineProvider>
       </UserProfileProvider>
     </Router>
   );

@@ -8,16 +8,16 @@ import {
     Input,
     Button,
 } from "reactstrap";
-import { MedicineContext } from '../../Providers/MedicineProvider';
+import { FoodContext } from '../../Providers/FoodProvider';
 import { useHistory, useParams } from "react-router-dom";
 
 
-const MedicineEdit = () => {
+const FoodEdit = () => {
 
-    const { updateMedicine, getMedicineById, getAllMedicine } = useContext(MedicineContext)
+    const { updateFood, getFoodById, getAllFood } = useContext(FoodContext)
 
     const { id } = useParams();
-    const [Medicine, setMedicine] = useState({});
+    const [Food, setFood] = useState({});
     const history = useHistory();
     
     // form field states
@@ -30,39 +30,39 @@ const MedicineEdit = () => {
 
 
     useEffect(() => {
-        getMedicineById(id).then(setMedicine)
-            .then(getUserMeds)
+        getFoodById(id).then(setFood)
+            .then(getUserFood)
     }, []);
 
-    // Once the Medicine has been set in state, update the form with previous post info
+    // Once the Food has been set in state, update the form with previous post info
     useEffect(() => {
 
-        setType(Medicine.type)
-        setDetails(Medicine.details)
-    }, [Medicine])
+        setType(Food.type)
+        setDetails(Food.details)
+    }, [Food])
 
 
     const submit = (e) => {
 
-        const updatedMedicine = {
-            ...Medicine
+        const updatedFood = {
+            ...Food
         };
         
-        updatedMedicine.type = type
-        updatedMedicine.details = details
+        updatedFood.type = type
+        updatedFood.details = details
 
-        updateMedicine(updatedMedicine).then((c) => {
+        updateFood(updatedFood).then((c) => {
             // Navigate the user back to the home route
             
-            history.push(`/Medicines/${Medicine.critterId}`);
+            history.push(`/Foods/${Food.critterId}`);
             
         });
     }
     const cancel = () => {
-        history.push(`/Medicines/${userProfileId}}`);
+        history.push(`/Foods/${id}}`);
     };
 
-    if (Medicine === null) {
+    if (Food === null) {
         return null
     }
 
@@ -99,4 +99,4 @@ const MedicineEdit = () => {
     )
 }
 
-export default MedicineEdit;
+export default FoodEdit;

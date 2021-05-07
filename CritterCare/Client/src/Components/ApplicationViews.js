@@ -4,7 +4,7 @@ import { UserProfileContext } from "../Providers/UserProfileProvider";
 import Login from "./Login";
 import Register from "./Register";
 import Welcome from "./Welcome";
-import { MedicineContext } from "../Providers/MedicineProvider";
+import { MedicineList } from "./Medicine/MedicineList";
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(UserProfileContext);
@@ -24,8 +24,8 @@ export default function ApplicationViews() {
                     <Register />
                 </Route>
 
-                <Route path="/medicine">
-                    <Register />
+                <Route path="/medicine/:id(\d+)" exact>
+                    <MedicineList />
                 </Route>
             </Switch>
         </main>

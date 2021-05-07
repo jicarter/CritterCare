@@ -1,17 +1,17 @@
 import React, { useState, useContext } from "react";
 import { UserProfileContext } from './UserProfileProvider';
 
-export const MedicineContext = React.createContext();
+export const FoodContext = React.createContext();
 
-export const MedicineProvider = (props) => {
-  const apiUrl = "/api/Medicine";
-  const [Medicine, setMedicine] = useState([]);
+export const FoodProvider = (props) => {
+  const apiUrl = "/api/Food";
+  const [Food, setFood] = useState([]);
  
   const { getToken } = useContext(UserProfileContext);
 
   
 
-  const addMedicine = (Medicine) => {
+  const addFood = (Food) => {
     return getToken().then((token) => 
     fetch(`${apiUrl}`, {
       method: "POST",
@@ -19,49 +19,49 @@ export const MedicineProvider = (props) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Medicine),
+      body: JSON.stringify(Food),
     })
     .then((res) => res.json()));
   }
 
-  const getMedicineById = (id) => {
+  const getFoodById = (id) => {
     return getToken().then((token) =>
-    fetch(`/api/Medicine/GetMedicineById/${id}`, {
+    fetch(`/api/Food/GetFoodById/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       }
     })
       .then((res) => res.json()))
-      .then(setMedicine);
+      .then(setFood);
   }  
 
-  const updateMedicine = (Medicine) => {
+  const updateFood = (Food) => {
     return getToken().then((token) => 
-    fetch(`/api/Medicine/${Medicine.id}`, {
+    fetch(`/api/Food/${Food.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Medicine)
+      body: JSON.stringify(Food)
     }))
   
   }
 
-  const getUserMeds = (id) => {
+  const getUserFood = (id) => {
     return getToken().then((token) =>
-      fetch(`${apiUrl}/GetAllMedicinesByUserId${id}`, {
+      fetch(`${apiUrl}/GetAllFoodByUserId${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         }
       })
         .then((res) => res.json()))
-        .then(setMedicine);
+        .then(setFood);
   }
 
-  const deleteMedicine = (id) => {
+  const deleteFood = (id) => {
     return getToken().then((token) =>
       fetch(`${apiUrl}/${id}`, {
         method: "DELETE",
@@ -73,8 +73,8 @@ export const MedicineProvider = (props) => {
   };
 
   return (
-    <MedicineContext.Provider value={{ Medicine, setMedicine, getUserMeds, addMedicine, getMedicineById, updateMedicine, deleteMedicine }}>
+    <FoodContext.Provider value={{ Food, setFood, getUserFood, addFood, getFoodById, updateFood, deleteFood }}>
       {props.children}
-    </MedicineContext.Provider>
+    </FoodContext.Provider>
   )
 }

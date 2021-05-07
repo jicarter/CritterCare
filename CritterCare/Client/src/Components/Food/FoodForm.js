@@ -9,34 +9,34 @@ import {
   Button,
   CardHeader
 } from "reactstrap";
-import { MedicineContext } from '../../Providers/MedicineProvider';
+import { FoodContext } from '../../Providers/FoodProvider';
 import { useHistory, useParams } from 'react-router-dom';
 
-export const MedicineForm = () => {
-  const { addMedicine, getMedicinesByUserProfileId, userProfileId } = useContext(MedicineContext)
+export const FoodForm = () => {
+  const { addFood, getFoodsByUserProfileId, userProfileId } = useContext(FoodContext)
   const history = useHistory();
   const { id } = useParams();
-  const [Medicine, setMedicine] = useState({
+  const [Food, setFood] = useState({
     subject: "",
     content: ""
   })
 
   const handleControlledInputChange = (event) => {
-    const newMedicine = { ...Medicine }
+    const newFood = { ...Food }
 
-    newMedicine[event.target.id] = event.target.value
-    setMedicine(newMedicine)
+    newFood[event.target.id] = event.target.value
+    setFood(newFood)
   }
 
-  const saveMedicine = ()  => {
+  const saveFood = ()  => {
 
-    addMedicine({
-    subject: Medicine.type,
-    content: Medicine.details,
+    addFood({
+    subject: Food.type,
+    content: Food.details,
     userProfileId: 1
     })
-    .then(setMedicine)
-    .then(history.push(`/Medicine/${id}`))
+    .then(setFood)
+    .then(history.push(`/Food/${id}`))
   }
 
   return (
@@ -44,21 +44,21 @@ export const MedicineForm = () => {
       <div className="row justify-content-center">
         <Card className="col-sm-12 col-lg-6">
           <CardHeader>
-            <h2 className="MedicineForm__title">Add Medicine</h2>
+            <h2 className="FoodForm__title">Add Food</h2>
           </CardHeader>
           <CardBody>
-            <Form className="MedicineForm">
+            <Form className="FoodForm">
               <FormGroup>
                 <Label for="type">Type: </Label>
-                <Input type="text" id="type" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Type" value={Medicine.type} />
+                <Input type="text" id="type" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Type" value={Food.type} />
               </FormGroup>
               <FormGroup>
                 <Label for="content">Details: </Label>
                 <Input type="textarea" id="Details" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Medicine Details here" value={Medicine.details} rows="10" />
+                placeholder="Enter your Food Details here" value={Food.details} rows="10" />
               </FormGroup>
             </Form>
-            <Button color="info" onClick={saveMedicine}>Save Medicine</Button>
+            <Button color="info" onClick={saveFood}>Save Food</Button>
           </CardBody>
         </Card>
       </div>
@@ -66,4 +66,4 @@ export const MedicineForm = () => {
   )
 }
 
-export default MedicineForm
+export default FoodForm
