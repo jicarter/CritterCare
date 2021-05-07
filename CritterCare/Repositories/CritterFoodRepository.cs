@@ -53,7 +53,7 @@ namespace CritterCare.Repositories
             }
         }
 
-        public List<CritterFood> GetMedsByCritterId(int CritterId)
+        public List<CritterFood> GetFoodByCritterId(int CritterId)
         {
             using (SqlConnection conn = Connection)
             {

@@ -10,6 +10,6 @@ namespace CritterCare.Repositories
     {
         void AddFood(CritterFood CritterFood);
         void DeleteCritterFood(int id);
-        List<CritterFood> GetMedsByCritterId(int CritterId);
+        List<CritterFood> GetFoodByCritterId(int CritterId);
     }
 }
