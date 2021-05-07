@@ -17,8 +17,8 @@ export const FoodForm = () => {
   const history = useHistory();
   const { id } = useParams();
   const [Food, setFood] = useState({
-    subject: "",
-    content: ""
+    type: "",
+    details: ""
   })
 
   const handleControlledInputChange = (event) => {
@@ -31,8 +31,8 @@ export const FoodForm = () => {
   const saveFood = ()  => {
 
     addFood({
-    subject: Food.type,
-    content: Food.details,
+    type: Food.type,
+    details: Food.details,
     userProfileId: 1
     })
     .then(setFood)
@@ -53,7 +53,7 @@ export const FoodForm = () => {
                 <Input type="text" id="type" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Type" value={Food.type} />
               </FormGroup>
               <FormGroup>
-                <Label for="content">Details: </Label>
+                <Label for="details">Details: </Label>
                 <Input type="textarea" id="Details" onChange={handleControlledInputChange} required autoFocus className="form-control"
                 placeholder="Enter your Food Details here" value={Food.details} rows="10" />
               </FormGroup>

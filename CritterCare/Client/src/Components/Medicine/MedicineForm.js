@@ -17,8 +17,8 @@ export const MedicineForm = () => {
   const history = useHistory();
   const { id } = useParams();
   const [Medicine, setMedicine] = useState({
-    subject: "",
-    content: ""
+    type: "",
+    details: ""
   })
 
   const handleControlledInputChange = (event) => {
@@ -31,8 +31,8 @@ export const MedicineForm = () => {
   const saveMedicine = ()  => {
 
     addMedicine({
-    subject: Medicine.type,
-    content: Medicine.details,
+    type: Medicine.type,
+    details: Medicine.details,
     userProfileId: 1
     })
     .then(setMedicine)
