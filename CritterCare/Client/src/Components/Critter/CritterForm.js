@@ -56,7 +56,7 @@ export const CritterForm = () => {
             <Form className="CritterForm">
               <FormGroup>
                 <Label for="name">Name: </Label>
-                <Input type="text" id="type" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Name" value={Critter.name} />
+                <Input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Name" value={Critter.name} />
               </FormGroup>
               <FormGroup>
                 <Label for="breed">Breed: </Label>
