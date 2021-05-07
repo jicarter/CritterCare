@@ -5,6 +5,9 @@ import Login from "./Login";
 import Register from "./Register";
 import Welcome from "./Welcome";
 import { MedicineList } from "./Medicine/MedicineList";
+import { FoodList } from "./Food/FoodList";
+import { CritterList } from "./Critter/CritterList";
+import { ExpensesList } from "./Expenses/ExpensesList";
 
 export default function ApplicationViews() {
     const { isLoggedIn } = useContext(UserProfileContext);
@@ -24,8 +27,17 @@ export default function ApplicationViews() {
                     <Register />
                 </Route>
 
-                <Route path="/medicine/:id(\d+)" exact>
+                <Route path="/Medicine/:id(\d+)" exact>
                     <MedicineList />
+                </Route>
+                <Route path="/Food/:id(\d+)" exact>
+                    <FoodList />
+                </Route>
+                <Route path="/Critter/:id(\d+)" exact>
+                    <CritterList />
+                </Route>
+                <Route path="/Expenses/:id(\d+)" exact>
+                    <ExpensesList />
                 </Route>
             </Switch>
         </main>
