@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 export const ExpensesList = () => {
-  const { Expenses, setExpenses, getUserExpenses} = useContext(ExpensesContext);
+  const { expenses, setExpenses, getUserExpenses} = useContext(ExpensesContext);
   const history = useHistory();
   const { id } = useParams();
 
@@ -20,12 +20,11 @@ export const ExpensesList = () => {
   return (
     
     <div className="container">
-      <Link to={`/`}>Home</Link>
     <Button color="info" onClick={() => history.push(`/Expenses/add/`)}>Add Expenses</Button>
       <div className="row justify-content-center">
         <div className="cards-column">
-          {Expenses.map((Expenses) => (
-            <Expenses key={Expenses.id} Expenses={Expenses} />
+          {expenses.map((ex) => (
+            <Expenses key={ex.id} Expenses={ex} />
           ))}
         </div>
       </div>

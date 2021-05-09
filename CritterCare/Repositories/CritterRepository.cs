@@ -14,7 +14,7 @@ namespace CritterCare.Repositories
     {
         public CritterRepository(IConfiguration configuration) : base(configuration) { }
 
-        public void AddCritter(Critter critter)
+        public int AddCritter(Critter critter)
         {
             using (var conn = Connection)
             {
@@ -22,13 +22,19 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Critter(Type, Details)
+                        INSERT INTO Critter(Name, Breed, Sex, ImageLocation, Notes, userProfileId)
                         OUTPUT INSERTED.ID
-                        VALUES (@type)";
+                        VALUES (@name, @breed, @sex, @imageLocation, @notes, @userProfileId)";
 
-                    DbUtils.AddParameter(cmd, "@type", critter);
+                    DbUtils.AddParameter(cmd, "@name", critter.Name);
+                    DbUtils.AddParameter(cmd, "@breed", critter.Breed);
+                    DbUtils.AddParameter(cmd, "@sex", critter.Sex);
+                    DbUtils.AddParameter(cmd, "@imageLocation", critter.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@notes", critter.Notes);
+                    DbUtils.AddParameter(cmd, "@userProfileId", critter.UserProfileId);
+                   
 
-                    critter.Id = (int)cmd.ExecuteScalar();
+                    return critter.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

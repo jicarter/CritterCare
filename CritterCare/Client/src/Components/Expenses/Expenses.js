@@ -20,10 +20,10 @@ const Expenses = ({ Expenses }) => {
         return (
             <Card className="m-4">
                 <CardBody>
-                    <p>{Expenses.Name}</p>
-                    <p>{Expenses.Price}</p>
-                    <p>{Expenses.Store}</p>
-                    <p>{Expenses.Receipt}</p>
+                    <p>{Expenses.name}</p>
+                    <p>{Expenses.price}</p>
+                    <p>{Expenses.store}</p>
+                    <p>{Expenses.receipt}</p>
                 </CardBody>
                 <Button onClick={editExpenses}>Edit</Button>
             </Card>
@@ -33,10 +33,10 @@ const Expenses = ({ Expenses }) => {
 
             <Card className="m-4">
                 <CardBody>
-                    <p>{Expenses.Name}</p>
-                    <p>{Expenses.Price}</p>
-                    <p>{Expenses.Store}</p>
-                    <p>{Expenses.Receipt}</p>
+                    <p>{Expenses.name}</p>
+                    <p>{Expenses.price}</p>
+                    <p>{Expenses.store}</p>
+                    <p>{Expenses.receipt}</p>
                 </CardBody>
             </Card>
         )

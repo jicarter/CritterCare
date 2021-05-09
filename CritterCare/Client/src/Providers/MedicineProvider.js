@@ -5,13 +5,13 @@ export const MedicineContext = React.createContext();
 
 export const MedicineProvider = (props) => {
   const apiUrl = "/api/Medicine";
-  const [Medicine, setMedicine] = useState([]);
+  const [Medicines, setMedicine] = useState([]);
  
   const { getToken } = useContext(UserProfileContext);
 
   
 
-  const addMedicine = (Medicine) => {
+  const addMedicine = (Medicines) => {
     return getToken().then((token) => 
     fetch(`${apiUrl}`, {
       method: "POST",
@@ -19,7 +19,7 @@ export const MedicineProvider = (props) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Medicine),
+      body: JSON.stringify(Medicines),
     })
     .then((res) => res.json()));
   }
@@ -36,15 +36,15 @@ export const MedicineProvider = (props) => {
       .then(setMedicine);
   }  
 
-  const updateMedicine = (Medicine) => {
+  const updateMedicine = (Medicines) => {
     return getToken().then((token) => 
-    fetch(`/api/Medicine/${Medicine.id}`, {
+    fetch(`/api/Medicine/${Medicines.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Medicine)
+      body: JSON.stringify(Medicines)
     }))
   
   }
@@ -73,7 +73,7 @@ export const MedicineProvider = (props) => {
   };
 
   return (
-    <MedicineContext.Provider value={{ Medicine, setMedicine, getUserMeds, addMedicine, getMedicineById, updateMedicine, deleteMedicine }}>
+    <MedicineContext.Provider value={{ Medicines, setMedicine, getUserMeds, addMedicine, getMedicineById, updateMedicine, deleteMedicine }}>
       {props.children}
     </MedicineContext.Provider>
   )

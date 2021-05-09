@@ -6,7 +6,7 @@ namespace CritterCare.Repositories
 {
     public interface ICritterRepository
     {
-        void AddCritter(Critter critter);
+        int AddCritter(Critter critter);
         void DeleteCritter(int Id);
         List<Critter> GetAllUsersCritters(int userProfileId);
         Critter GetCritterById(int id);

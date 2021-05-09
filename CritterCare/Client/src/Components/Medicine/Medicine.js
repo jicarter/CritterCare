@@ -20,9 +20,8 @@ const Medicine = ({ Medicine }) => {
     return (
       <Card className="m-4">
         <CardBody>
-          <p>{Medicine.Type}</p>
-          <p>{Medicine.Details}</p>
-          <p>{Medicine.userProfile.displayName}</p>
+          <p>{Medicine.type}</p>
+          <p>{Medicine.details}</p>
         </CardBody>
         <Button onClick={editMedicine}>Edit</Button>
       </Card>
@@ -32,9 +31,8 @@ const Medicine = ({ Medicine }) => {
 
       <Card className="m-4">
         <CardBody>
-          <p>{Medicine.Type}</p>
-          <p>{Medicine.Details}</p>
-          <p>{Medicine.userProfile.displayName}</p>
+          <p>{Medicine.type}</p>
+          <p>{Medicine.details}</p>
         </CardBody>
       </Card>
     )

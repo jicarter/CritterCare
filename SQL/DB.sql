@@ -46,7 +46,6 @@ CREATE TABLE [Critter] (
   [Name] nvarchar(255) NOT NULL,
   [Breed] text NOT NULL,
   [ImageLocation] nvarchar(255),
-  [CreateDateTime] datetime NOT NULL,
   [Sex] nvarchar(255) NOT NULL,
   [UserProfileId] integer NOT NULL,
   [Notes] nvarchar(550) NOT NULL,
@@ -69,7 +68,6 @@ CREATE TABLE [Medicine] (
   [Type] nvarchar(255) NOT NULL,
   [Use] text NOT NULL,
   [Details] text NOT NULL,
-  [CreateDateTime] datetime NOT NULL,
   [UserProfileId] integer NOT NULL,
 )
 

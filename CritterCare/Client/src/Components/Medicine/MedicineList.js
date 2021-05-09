@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 export const MedicineList = () => {
-  const { Medicine, setMedicine, getUserMeds} = useContext(MedicineContext);
+  const { Medicines, setMedicine, getUserMeds} = useContext(MedicineContext);
   const history = useHistory();
   const { id } = useParams();
 
@@ -19,11 +19,10 @@ export const MedicineList = () => {
 
   return (
     <div className="container">
-      <Link to={`/`}>Home</Link>
       <div className="row justify-content-center">
         <div className="cards-column">
-          {Medicine.map((Medicine) => (
-            <Medicine key={Medicine.id} Medicine={Medicine} />
+          {Medicines.map((medicine) => (
+            <Medicine key={medicine.id} Medicine={medicine} />
           ))}
         </div>
       </div>

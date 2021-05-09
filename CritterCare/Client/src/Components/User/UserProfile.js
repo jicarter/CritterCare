@@ -10,7 +10,7 @@ export const UserProfile = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        getUserProfileById().then(setProfile);
+        getUserProfileById(id).then(setProfile);
     }, []);
 
 
@@ -22,7 +22,8 @@ export const UserProfile = () => {
                     <Row>
                         <Col>
                             <h2>{profile.displayName}</h2>
-                            <h5>{profile.fullName}</h5>
+                            <h5>{profile.firstName}</h5>
+                            <h5>{profile.lastName}</h5>
                             <br />
                             <Row>
                                 <Col lg="6">

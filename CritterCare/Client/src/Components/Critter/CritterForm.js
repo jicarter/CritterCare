@@ -20,7 +20,7 @@ export const CritterForm = () => {
     name: "",
     breed: "",
     sex: "",
-    image: "",
+    imageLocation: "",
     notes: ""
   })
 
@@ -33,16 +33,19 @@ export const CritterForm = () => {
 
   const saveCritter = ()  => {
 
+    const userProfile = sessionStorage.getItem("userProfile");
+    // Parsing the JSON returned above into an object so we can use it
+    var currentUser = JSON.parse(userProfile)
+
     addCritter({
     name: Critter.name,
     breed: Critter.breed,
     sex: Critter.sex,
-    image: Critter.imageLocation,
+    imageLocation: Critter.imageLocation,
     notes: Critter.notes,
     userProfileId: 1
     })
-    .then(setCritter)
-    .then(history.push(`/Critter/${id}`))
+    .then(history.push(`/Critter/${currentUser.id}`))
   }
 
   return (
@@ -61,17 +64,17 @@ export const CritterForm = () => {
               <FormGroup>
                 <Label for="breed">Breed: </Label>
                 <Input type="textarea" id="breed" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Critter Breed here" value={Critter.breed} rows="10" />
+                placeholder="Enter your Critter Breed here" value={Critter.breed}  />
               </FormGroup>
               <FormGroup>
                 <Label for="sex">Sex: </Label>
                 <Input type="textarea" id="sex" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Critter sex here" value={Critter.sex} rows="10" />
+                placeholder="Enter your Critter sex here" value={Critter.sex}  />
               </FormGroup>
               <FormGroup>
                 <Label for="image">Image: </Label>
-                <Input type="textarea" id="image" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Critter image here" value={Critter.imageLocation} rows="10" />
+                <Input type="textarea" id="imageLocation" onChange={handleControlledInputChange} required autoFocus className="form-control"
+                placeholder="Enter your Critter image here" value={Critter.imageLocation}  />
               </FormGroup>
               <FormGroup>
                 <Label for="notes">Notes: </Label>

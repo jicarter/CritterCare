@@ -5,13 +5,13 @@ export const FoodContext = React.createContext();
 
 export const FoodProvider = (props) => {
   const apiUrl = "/api/Food";
-  const [Food, setFood] = useState([]);
+  const [Foods, setFood] = useState([]);
  
   const { getToken } = useContext(UserProfileContext);
 
   
 
-  const addFood = (Food) => {
+  const addFood = (Foods) => {
     return getToken().then((token) => 
     fetch(`${apiUrl}`, {
       method: "POST",
@@ -19,7 +19,7 @@ export const FoodProvider = (props) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Food),
+      body: JSON.stringify(Foods),
     })
     .then((res) => res.json()));
   }
@@ -33,18 +33,19 @@ export const FoodProvider = (props) => {
       }
     })
       .then((res) => res.json()))
-      .then(setFood);
+      .then(setFood)
+      .then(console.log(Foods))
   }  
 
-  const updateFood = (Food) => {
+  const updateFood = (Foods) => {
     return getToken().then((token) => 
-    fetch(`/api/Food/${Food.id}`, {
+    fetch(`/api/Food/${Foods.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(Food)
+      body: JSON.stringify(Foods)
     }))
   
   }
@@ -73,7 +74,7 @@ export const FoodProvider = (props) => {
   };
 
   return (
-    <FoodContext.Provider value={{ Food, setFood, getUserFood, addFood, getFoodById, updateFood, deleteFood }}>
+    <FoodContext.Provider value={{ Foods, setFood, getUserFood, addFood, getFoodById, updateFood, deleteFood }}>
       {props.children}
     </FoodContext.Provider>
   )

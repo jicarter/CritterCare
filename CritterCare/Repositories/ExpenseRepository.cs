@@ -21,7 +21,7 @@ namespace CritterCare.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Expense ([Name], Price, Store, Receipt, CategoryId, UserProfileId)
+                    INSERT INTO Expenses ([Name], Price, Store, Receipt, CategoryId, UserProfileId)
                     OUTPUT INSERTED.ID
                     VALUES (@name);
                     ";
@@ -50,7 +50,7 @@ namespace CritterCare.Repositories
                 {
                     
                     cmd.CommandText = @"
-                    DELETE From Expense
+                    DELETE From Expenses
                     WHERE Id = @id
                     ";
 
@@ -107,7 +107,7 @@ namespace CritterCare.Repositories
                 {
                     cmd.CommandText = @"
                     SELECT Id, [Name], Price, Store, Receipt, CategoryId, UserProfileId
-                    FROM Expense
+                    FROM Expenses
                     WHERE Id = @id
                     ";
 
@@ -121,13 +121,13 @@ namespace CritterCare.Repositories
                     {
                         Expense = new Expenses()
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            Name = DbUtils.GetString(reader, "Name"),
-                            Price = DbUtils.GetInt(reader, "Price"),
-                            Store = DbUtils.GetString(reader,"Store"),
-                            Receipt = DbUtils.GetString(reader, "Receipt"),
-                            CategoryId = DbUtils.GetInt(reader, "CategoryId"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                            Store = reader.GetString(reader.GetOrdinal("Store")),
+                            Receipt = reader.GetString(reader.GetOrdinal("Receipt")),
+                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
                         };
                     }
 
@@ -146,7 +146,7 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    UPDATE Expense
+                    UPDATE Expenses
                        SET Name = @Name,
                            Price = @Price,
                            Store = @Store,

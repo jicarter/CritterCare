@@ -20,9 +20,8 @@ const Food = ({ Food }) => {
     return (
       <Card className="m-4">
         <CardBody>
-          <p>{Food.Type}</p>
-          <p>{Food.Details}</p>
-          <p>{Food.userProfile.displayName}</p>
+          <p>{Food.type}</p>
+          <p>{Food.details}</p>
         </CardBody>
         <Button onClick={editFood}>Edit</Button>
       </Card>
@@ -32,9 +31,8 @@ const Food = ({ Food }) => {
 
       <Card className="m-4">
         <CardBody>
-          <p>{Food.Type}</p>
-          <p>{Food.Details}</p>
-          <p>{Food.userProfile.displayName}</p>
+          <p>{Food.type}</p>
+          <p>{Food.details}</p> 
         </CardBody>
       </Card>
     )

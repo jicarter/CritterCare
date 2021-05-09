@@ -28,7 +28,7 @@ export const CritterEdit = () => {
     const [notes, setNotes] = useState("");
 
     const userProfile = sessionStorage.getItem("userProfile");
-
+   
 
 
 

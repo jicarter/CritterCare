@@ -13,7 +13,7 @@ insert into Category (Id, [Name]) values (1, 'New Animal'), (2, 'Food'), (3, 'Me
 set identity_insert [Category] off
 
 set identity_insert [Critter] on 
-insert into Critter (Id, Name, Breed, Sex, ImageLocation, Notes, UserProfileId, CreateDateTime) values (1, 'Oinky', 'Pig', 'Male', 'https://unsplash.com/photos/CP9GGy_LkIY', 'Oinky is a pig', 1, '2021-04-04' );
+insert into Critter (Id, Name, Breed, Sex, ImageLocation, Notes, UserProfileId) values (1, 'Oinky', 'Pig', 'Male', 'https://unsplash.com/photos/CP9GGy_LkIY', 'Oinky is a pig', 1 );
 set identity_insert [Critter] off
 
 set identity_insert [Food] on
@@ -21,7 +21,7 @@ insert into Food (Id, Type, Details, UserProfileId) values (1, 'Country Feeds Wh
 set identity_insert [Food] off
 
 set identity_insert [Medicine] on
-insert into Medicine (Id, Type, Details, CreateDateTime, [Use], UserProfileId) values (1, 'SAFE_GUARD DEWORMER', '9 mg fenbendazole per kg body weight (4.08 mg fenbendazole per pound) to be fed as the sole ration over a period of 3 to 12 days.It is recommended that SAFE-GUARD® 20% Type A Medicated Article be diluted before addition to the feed. A dilution of one part of SAFE-GUARD®20% Type A Medicated Article and nine parts of grain carrier is the suggested working premix. The working premix is then blended with the complete feed mixture. Thoroughly mix both working premix and complete feed to ensure complete and uniform distribution of the SAFE-GUARD® 20% Type A Medicated Article.', '2021-04-28', 'Dewormer',1  );
+insert into Medicine (Id, Type, Details, [Use], UserProfileId) values (1, 'SAFE_GUARD DEWORMER', '9 mg fenbendazole per kg body weight (4.08 mg fenbendazole per pound) to be fed as the sole ration over a period of 3 to 12 days.It is recommended that SAFE-GUARD® 20% Type A Medicated Article be diluted before addition to the feed. A dilution of one part of SAFE-GUARD®20% Type A Medicated Article and nine parts of grain carrier is the suggested working premix. The working premix is then blended with the complete feed mixture. Thoroughly mix both working premix and complete feed to ensure complete and uniform distribution of the SAFE-GUARD® 20% Type A Medicated Article.', 'Dewormer',1  );
 set identity_insert [Medicine] off
 
 set identity_insert [Expenses] on

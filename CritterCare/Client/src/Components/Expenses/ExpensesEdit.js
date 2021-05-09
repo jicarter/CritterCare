@@ -27,13 +27,13 @@ export const ExpensesEdit = () => {
     const [receipt, setReceipt] = useState("");
    
     const userProfile = sessionStorage.getItem("userProfile");
-
+    var currentUser = JSON.parse(userProfile)
 
 
 
     useEffect(() => {
         getExpensesById(id).then(setExpenses)
-            .then(getUserExpenses)
+            
     }, []);
 
     // Once the Expenses has been set in state, update the form with previous post info
@@ -60,12 +60,12 @@ export const ExpensesEdit = () => {
         updateExpenses(updatedExpenses).then((c) => {
             // Navigate the user back to the home route
             
-            history.push(`/Expensess/${Expenses.ExpensesId}`);
+            history.push(`/Expenses/${currentUser.id}`);
             
         });
     }
     const cancel = () => {
-        history.push(`/Expensess/${id}}`);
+        history.push(`/Expenses/${id}}`);
     };
 
     if (Expenses === null) {

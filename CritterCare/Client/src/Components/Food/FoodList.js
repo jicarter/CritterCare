@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import { useHistory, useParams, Link } from 'react-router-dom';
 
 export const FoodList = () => {
-  const { Food, setFood, getUserFood} = useContext(FoodContext);
+  const { Foods, setFood, getUserFood} = useContext(FoodContext);
   const history = useHistory();
   const { id } = useParams();
 
@@ -13,17 +13,16 @@ export const FoodList = () => {
   useEffect(() => {
     getUserFood(id)
     
-    .then(console.log(Food))
+    .then(console.log(Foods))
   }, []);
 
 
   return (
     <div className="container">
-      <Link to={`/`}>Home</Link>
       <div className="row justify-content-center">
         <div className="cards-column">
-          {Food.map((Food) => (
-            <Food key={Food.id} Food={Food} />
+          {Foods.map((food) => (
+            <Food key={food.id} Food={food} />
           ))}
         </div>
       </div>

@@ -89,8 +89,8 @@ export function UserProfileProvider(props) {
           Authorization: `Bearer ${token}`
         }
       }).then((res) => res.json())
-        .then(setProfile)
-        .then(console.log(profile))
+        
+        
     )
   }
 

@@ -13,7 +13,7 @@ export const CritterList = () => {
   useEffect(() => {
     getUserCritter(id)
     
-    .then(console.log(Critter))
+    .then(console.log(Critters))
   }, []);
 
 
@@ -21,7 +21,7 @@ export const CritterList = () => {
     <div className="container">
       <div className="row justify-content-center">
         <div className="cards-column">
-          {Critter.map((critter) => (
+          {Critters.map((critter) => (
             <Critter key={critter.id} Critter={critter} />
           ))}
         </div>
