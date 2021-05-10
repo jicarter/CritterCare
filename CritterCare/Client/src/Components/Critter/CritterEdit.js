@@ -64,12 +64,12 @@ export const CritterEdit = () => {
         updateCritter(updatedCritter).then((c) => {
             // Navigate the user back to the home route
             
-            history.push(`/Critters/${currentUser.id}`);
+            history.push(`/Critter/${currentUser.id}`);
             
         });
     }
     const cancel = () => {
-        history.push(`/Critters/${currentUser.id}}`);
+        history.push(`/Critter/${currentUser.id}}`);
     };
 
     if (Critter === null) {

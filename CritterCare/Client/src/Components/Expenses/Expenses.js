@@ -1,14 +1,22 @@
 import React, { useContext } from "react";
 import { Button, Card, CardBody, CardFooter } from "reactstrap";
 import { useHistory } from "react-router-dom";
-
+import { ExpensesContext } from "../../Providers/ExpensesProvider";
 
 const Expenses = ({ Expenses }) => {
     const history = useHistory();
     const userProfile = sessionStorage.getItem("userProfile");
     var currentUser = JSON.parse(userProfile);
 
+    const { deleteExpenses, getUserExpenses } = useContext(ExpensesContext);
 
+    const handleDelete = () => {
+        
+        if (window.confirm(`Are you sure you want to delete this expense?`)) {
+            deleteExpenses(Expenses.id).then(getUserExpenses);
+            history.push(`/Expenses/${currentUser.id}`);
+        }
+    };
 
     const editExpenses = () => {
 
@@ -29,6 +37,7 @@ const Expenses = ({ Expenses }) => {
                     <p>Category:{Expenses.category.name}</p>
                 </CardFooter>
                 <Button onClick={editExpenses}>Edit</Button>
+                <Button onClick={handleDelete}>Delete</Button>
             </Card>
         )
     } else {

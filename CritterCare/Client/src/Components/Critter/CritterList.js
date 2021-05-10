@@ -11,9 +11,9 @@ export const CritterList = () => {
 
   
   useEffect(() => {
-    getUserCritter(id)
+    getUserCritter(id).then(setCritter)
     
-  }, [Critters]);
+  }, []);
 
 
   return (

@@ -41,32 +41,9 @@ namespace CritterCare.Repositories
 
         public void DeleteMedicine(int id)
         {
-            var meds = GetAllMeds();
             using (var conn = Connection)
             {
                 conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                    UPDATE Critter
-                        SET MedicineId = @MedicineId
-                    WHERE MedicineId = @id
-                    ";
-
-                    DbUtils.AddParameter(cmd, "@id", id);
-                    if (id != meds[0].Id)
-                    {
-                        DbUtils.AddParameter(cmd, "@MedicineId", meds[0].Id);
-                    }
-                    else
-                    {
-                        DbUtils.AddParameter(cmd, "@MedicineId", meds[1].Id);
-                    }
-
-
-                    cmd.ExecuteNonQuery();
-                }
-
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"

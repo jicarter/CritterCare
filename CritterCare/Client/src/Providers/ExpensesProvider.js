@@ -6,58 +6,59 @@ export const ExpensesContext = React.createContext();
 export const ExpensesProvider = (props) => {
   const apiUrl = "/api/Expenses";
   const [expenses, setExpenses] = useState([]);
- 
-  const { getToken } = useContext(UserProfileContext);
 
-  
+  const { getToken } = useContext(UserProfileContext);
+  const userProfile = sessionStorage.getItem("userProfile");
+  var currentUser = JSON.parse(userProfile)
+
 
   const addExpenses = (Expenses) => {
-    return getToken().then((token) => 
-    fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(Expenses)
-    })
-    .then((res) => res.json()));
+    return getToken().then((token) =>
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(Expenses)
+      })
+        .then((res) => res.json()));
   }
 
   const getExpensesById = (id) => {
     return getToken().then((token) =>
-    fetch(`/api/Expenses/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then((res) => res.json()))
-  }  
-
-  const updateExpenses = (Expenses) => {
-    return getToken().then((token) => 
-    fetch(`/api/Expenses/${Expenses.id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(Expenses)
-    }))
-  
-  }
-
-  const getUserExpenses = (id) => {
-    return getToken().then((token) =>
-      fetch(`${apiUrl}/GetAllExpensesByUserId/${id}`, {
+      fetch(`/api/Expenses/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
         .then((res) => res.json()))
-        .then(setExpenses);
+  }
+
+  const updateExpenses = (Expenses) => {
+    return getToken().then((token) =>
+      fetch(`/api/Expenses/${Expenses.id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(Expenses)
+      }))
+
+  }
+
+  const getUserExpenses = (id) => {
+    return getToken().then((token) =>
+      fetch(`${apiUrl}/GetAllExpensesByUserId/${currentUser.id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then((res) => res.json()))
+      .then(setExpenses);
   }
 
   const deleteExpenses = (id) => {

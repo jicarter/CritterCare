@@ -153,10 +153,6 @@ namespace CritterCare.Repositories
                            Notes = @Notes
                      WHERE Id = @Id
 
-
-                    UPDATE CritterMeds
-                        SET MedicineId = @medicineId
-                        WHERE CritterId = @id
                         ";
 
                     cmd.Parameters.AddWithValue("@Name", critter.Name);

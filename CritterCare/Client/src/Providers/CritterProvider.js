@@ -40,7 +40,7 @@ export const CritterProvider = (props) => {
 
   const updateCritter = (critter) => {
     return getToken().then((token) =>
-      fetch(`/api/Critter/${Critters.id}`, {
+      fetch(`/api/Critter/${critter.id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,7 +60,7 @@ export const CritterProvider = (props) => {
         }
       })
         .then((res) => res.json()))
-        .then(r => setCritter(r)) //why does setCritters work and not have to write it like this
+        //.then(r => setCritter(r)) //why does setCritters work and not have to write it like this
         .then(console.log(Critters))
 
   }
