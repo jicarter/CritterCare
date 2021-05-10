@@ -16,9 +16,13 @@ export const MedicineForm = () => {
   const { addMedicine, getMedicinesByUserProfileId, userProfileId } = useContext(MedicineContext)
   const history = useHistory();
   const { id } = useParams();
+  const userProfile = sessionStorage.getItem("userProfile");
+  var currentUser = JSON.parse(userProfile)
+
   const [Medicine, setMedicine] = useState({
     type: "",
-    details: ""
+    details: "",
+    use:""
   })
 
   const handleControlledInputChange = (event) => {
@@ -33,10 +37,11 @@ export const MedicineForm = () => {
     addMedicine({
     type: Medicine.type,
     details: Medicine.details,
+    use: Medicine.use,
     userProfileId: 1
     })
     .then(setMedicine)
-    .then(history.push(`/Medicine/${id}`))
+    .then(history.push(`/Medicine/${currentUser.id}`))
   }
 
   return (
@@ -53,8 +58,13 @@ export const MedicineForm = () => {
                 <Input type="text" id="type" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Type" value={Medicine.type} />
               </FormGroup>
               <FormGroup>
+                <Label for="content">Use: </Label>
+                <Input type="textarea" id="use" onChange={handleControlledInputChange} required autoFocus className="form-control"
+                placeholder="Enter your Medicine Use here" value={Medicine.use} rows="10" />
+              </FormGroup>
+              <FormGroup>
                 <Label for="content">Details: </Label>
-                <Input type="textarea" id="Details" onChange={handleControlledInputChange} required autoFocus className="form-control"
+                <Input type="textarea" id="details" onChange={handleControlledInputChange} required autoFocus className="form-control"
                 placeholder="Enter your Medicine Details here" value={Medicine.details} rows="10" />
               </FormGroup>
             </Form>

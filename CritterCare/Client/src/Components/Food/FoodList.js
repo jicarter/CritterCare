@@ -13,7 +13,6 @@ export const FoodList = () => {
   useEffect(() => {
     getUserFood(id)
     
-    .then(console.log(Foods))
   }, []);
 
 

@@ -13,8 +13,7 @@ export const CritterList = () => {
   useEffect(() => {
     getUserCritter(id)
     
-    .then(console.log(Critters))
-  }, []);
+  }, [Critters]);
 
 
   return (

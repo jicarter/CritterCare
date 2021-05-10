@@ -17,23 +17,22 @@ export const MedicineProvider = (props) => {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(Medicines),
+      body: JSON.stringify(Medicines)
     })
     .then((res) => res.json()));
   }
 
   const getMedicineById = (id) => {
     return getToken().then((token) =>
-    fetch(`/api/Medicine/GetMedicineById/${id}`, {
+    fetch(`/api/Medicine/${id}`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       }
     })
       .then((res) => res.json()))
-      .then(setMedicine);
   }  
 
   const updateMedicine = (Medicines) => {
@@ -42,7 +41,7 @@ export const MedicineProvider = (props) => {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(Medicines)
     }))
@@ -54,7 +53,7 @@ export const MedicineProvider = (props) => {
       fetch(`${apiUrl}/GetAllMedicinesByUserId/${id}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
       })
         .then((res) => res.json()))
@@ -66,7 +65,7 @@ export const MedicineProvider = (props) => {
       fetch(`${apiUrl}/${id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
       })
     );

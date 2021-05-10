@@ -28,13 +28,14 @@ export const CritterEdit = () => {
     const [notes, setNotes] = useState("");
 
     const userProfile = sessionStorage.getItem("userProfile");
+    var currentUser = JSON.parse(userProfile);
    
 
 
 
     useEffect(() => {
         getCritterById(id).then(setCritter)
-            .then(getUserCritter)
+            
     }, []);
 
     // Once the Critter has been set in state, update the form with previous post info
@@ -63,12 +64,12 @@ export const CritterEdit = () => {
         updateCritter(updatedCritter).then((c) => {
             // Navigate the user back to the home route
             
-            history.push(`/Critters/${Critter.critterId}`);
+            history.push(`/Critters/${currentUser.id}`);
             
         });
     }
     const cancel = () => {
-        history.push(`/Critters/${id}}`);
+        history.push(`/Critters/${currentUser.id}}`);
     };
 
     if (Critter === null) {

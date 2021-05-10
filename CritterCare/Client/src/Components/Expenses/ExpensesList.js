@@ -13,14 +13,13 @@ export const ExpensesList = () => {
   useEffect(() => {
     getUserExpenses(id)
     
-    .then(console.log(Expenses))
-  }, []);
+  }, [expenses]);
 
 
   return (
     
     <div className="container">
-    <Button color="info" onClick={() => history.push(`/Expenses/add/`)}>Add Expenses</Button>
+    <Button color="info" onClick={() => history.push(`/Expenses/create/`)}>Add Expenses</Button>
       <div className="row justify-content-center">
         <div className="cards-column">
           {expenses.map((ex) => (

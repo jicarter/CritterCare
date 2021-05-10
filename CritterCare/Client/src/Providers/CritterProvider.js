@@ -28,14 +28,13 @@ export const CritterProvider = (props) => {
 
   const getCritterById = (id) => {
     return getToken().then((token) =>
-      fetch(`/api/Critter/GetCritterById/${id}`, {
+      fetch(`/api/Critter/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-        .then((res) => res.json())
-        .then(setCritter))
+        .then((res) => res.json()))
 
   }
 

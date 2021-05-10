@@ -23,18 +23,19 @@ namespace CritterCare.Repositories
                     cmd.CommandText = @"
                     INSERT INTO Expenses ([Name], Price, Store, Receipt, CategoryId, UserProfileId)
                     OUTPUT INSERTED.ID
-                    VALUES (@name);
+                    VALUES (@name, @price, @store, @receipt, @categoryId, @userProfileId);
                     ";
 
                     cmd.Parameters.AddWithValue("@name", Expense.Name);
                     cmd.Parameters.AddWithValue("@price", Expense.Price);
                     cmd.Parameters.AddWithValue("@store", Expense.Store);
                     cmd.Parameters.AddWithValue("@receipt", Expense.Receipt);
-                    cmd.Parameters.AddWithValue("@categoryId", Expense.CategoryId); 
- 
-                    int newlyCreatedId = (int)cmd.ExecuteScalar();
+                    cmd.Parameters.AddWithValue("@categoryId", Expense.CategoryId);
+                    cmd.Parameters.AddWithValue("@userProfileId", Expense.UserProfileId);
 
-                    Expense.Id = newlyCreatedId;
+                    Expense.Id= (int)cmd.ExecuteScalar();
+
+                    
                 }
             }
         }
@@ -68,9 +69,13 @@ namespace CritterCare.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT Id, [Name], Price, Store, Receipt, CategoryId, UserProfileId 
-                                        FROM Expenses 
-                                        ORDER BY [Name]";
+                    cmd.CommandText = @"SELECT e.Id, e.[Name], e.Price, e.Store, e.Receipt, e.CategoryId, e.UserProfileId, c.[Name] AS CategoryName 
+                                        FROM Expenses e 
+                                        LEFT JOIN UserProfile up ON e.UserProfileId = up.Id
+                                        LEFT JOIN Category c ON e.CategoryId = c.Id 
+
+                                        ORDER BY [Name]
+                                       ";
 
                     var reader = cmd.ExecuteReader();
 
@@ -78,17 +83,7 @@ namespace CritterCare.Repositories
 
                     while (reader.Read())
                     {
-                        expenses.Add(new Expenses()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
-                            Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                            Store = reader.GetString(reader.GetOrdinal("Store")),
-                            Receipt = reader.GetString(reader.GetOrdinal("Receipt")),
-                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-
-                        });
+                        expenses.Add(NewExpenseFromReader(reader));
                     }
 
                     reader.Close();
@@ -106,9 +101,11 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT Id, [Name], Price, Store, Receipt, CategoryId, UserProfileId
-                    FROM Expenses
-                    WHERE Id = @id
+                   SELECT e.Id, e.[Name], e.Price, e.Store, e.Receipt, e.CategoryId, e.UserProfileId, c.[Name] AS CategoryName 
+                   FROM Expenses e 
+                   LEFT JOIN UserProfile up ON e.UserProfileId = up.Id
+                   LEFT JOIN Category c ON e.CategoryId = c.Id 
+                    WHERE e.Id = @id
                     ";
 
                     DbUtils.AddParameter(cmd, "id", id);
@@ -119,16 +116,7 @@ namespace CritterCare.Repositories
 
                     if (reader.Read())
                     {
-                        Expense = new Expenses()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
-                            Price = reader.GetDecimal(reader.GetOrdinal("Price")),
-                            Store = reader.GetString(reader.GetOrdinal("Store")),
-                            Receipt = reader.GetString(reader.GetOrdinal("Receipt")),
-                            CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
-                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-                        };
+                        Expense = NewExpenseFromReader(reader);
                     }
 
                     reader.Close();
@@ -177,8 +165,8 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    SELECT e.Id, e.[Name], e.Price, e.Store, e.Receipt, e.CategoryId, e.UserProfileId
-                    FROM Expenses e
+                    SELECT e.Id, e.[Name], e.Price, e.Store, e.Receipt, e.CategoryId, e.UserProfileId, c.[Name] AS CategoryName 
+                    FROM Expenses e 
                     LEFT JOIN UserProfile up ON e.UserProfileId = up.Id
                     LEFT JOIN Category c ON e.CategoryId = c.Id 
                     WHERE e.UserProfileId = @id
@@ -189,16 +177,16 @@ namespace CritterCare.Repositories
                     DbUtils.AddParameter(cmd, "@id", UserProfileId);
                     var reader = cmd.ExecuteReader();
 
-                    var meds = new List<Expenses>();
+                    var expenses = new List<Expenses>();
 
                     while (reader.Read())
                     {
-                        meds.Add(NewExpenseFromReader(reader))
-                         ;
+                        expenses.Add(NewExpenseFromReader(reader));
+                        
                     }
 
                     reader.Close();
-                    return meds;
+                    return expenses;
                 }
             }
         }
@@ -212,9 +200,13 @@ namespace CritterCare.Repositories
                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                 Store = reader.GetString(reader.GetOrdinal("Store")),
                 Receipt = reader.GetString(reader.GetOrdinal("Receipt")),
-                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
                 UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
-
+                CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                Category = new Category()
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+                    Name = reader.GetString(reader.GetOrdinal("CategoryName"))
+                }
             };
         }
     }

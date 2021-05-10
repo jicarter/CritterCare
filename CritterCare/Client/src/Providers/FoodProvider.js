@@ -26,14 +26,14 @@ export const FoodProvider = (props) => {
 
   const getFoodById = (id) => {
     return getToken().then((token) =>
-    fetch(`/api/Food/GetFoodById/${id}`, {
+    fetch(`/api/Food/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       }
     })
       .then((res) => res.json()))
-      .then(setFood)
+      
       .then(console.log(Foods))
   }  
 

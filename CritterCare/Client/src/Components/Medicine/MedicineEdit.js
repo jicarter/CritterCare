@@ -25,13 +25,12 @@ export const MedicineEdit = () => {
     const [details, setDetails] = useState("");
 
     const userProfile = sessionStorage.getItem("userProfile");
-
+    var currentUser = JSON.parse(userProfile)
 
 
 
     useEffect(() => {
         getMedicineById(id).then(setMedicine)
-            .then(getUserMeds)
     }, []);
 
     // Once the Medicine has been set in state, update the form with previous post info
@@ -54,12 +53,12 @@ export const MedicineEdit = () => {
         updateMedicine(updatedMedicine).then((c) => {
             // Navigate the user back to the home route
             
-            history.push(`/Medicines/${Medicine.critterId}`);
+            history.push(`/Medicine/${currentUser.id}`);
             
         });
     }
     const cancel = () => {
-        history.push(`/Medicines/${id}}`);
+        history.push(`/Medicine/${currentUser.id}}`);
     };
 
     if (Medicine === null) {

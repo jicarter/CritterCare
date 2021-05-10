@@ -7,21 +7,33 @@ import {
   Label,
   Input,
   Button,
-  CardHeader
+  CardHeader,
 } from "reactstrap";
 import { ExpensesContext } from '../../Providers/ExpensesProvider';
+import { CategoryContext } from '../../Providers/CategoryProvider';
 import { useHistory, useParams } from 'react-router-dom';
 
 export const ExpensesForm = () => {
-  const { addExpenses, getExpensessByUserProfileId, userProfileId } = useContext(ExpensesContext)
+  const { addExpenses, getExpensessByUserProfileId, userProfileId } = useContext(ExpensesContext);
+  const { getAllCategories } = useContext(CategoryContext);
   const history = useHistory();
   const { id } = useParams();
+  const [categories, setCategories] = useState([]);
+  const userProfile = sessionStorage.getItem("userProfile");
+    var currentUser = JSON.parse(userProfile)
+
+  useEffect(() => {
+    getAllCategories().then(setCategories)
+  }, [])
+
   const [Expenses, setExpenses] = useState({
     name: "",
     price: "",
     store: "",
-    receipt: ""
+    receipt: "",
+    categoryId: 0
   })
+
 
   const handleControlledInputChange = (event) => {
     const newExpenses = { ...Expenses }
@@ -30,17 +42,18 @@ export const ExpensesForm = () => {
     setExpenses(newExpenses)
   }
 
-  const saveExpenses = ()  => {
+  const saveExpenses = () => {
 
     addExpenses({
-    name: Expenses.name,
-    price: Expenses.price,
-    store: Expenses.store,
-    receipt: Expenses.receipt,
-    userProfileId: 1
+      name: Expenses.name,
+      price: Expenses.price,
+      store: Expenses.store,
+      receipt: Expenses.receipt,
+      categoryId: parseInt(Expenses.categoryId),
+      userProfileId: 1
     })
-    .then(setExpenses)
-    .then(history.push(`/Expenses/${id}`))
+      .then(setExpenses)
+      .then(history.push(`/Expenses/${currentUser.id}`))
   }
 
   return (
@@ -59,17 +72,35 @@ export const ExpensesForm = () => {
               <FormGroup>
                 <Label for="price">price: </Label>
                 <Input type="textarea" id="price" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Expenses price here" value={Expenses.price} rows="10" />
+                  placeholder="Enter your Expenses price here" value={Expenses.price} />
               </FormGroup>
               <FormGroup>
                 <Label for="store">Store: </Label>
                 <Input type="textarea" id="store" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Expenses sex here" value={Expenses.store} rows="10" />
+                  placeholder="Enter where you spent your money here" value={Expenses.store} rows="10" />
               </FormGroup>
               <FormGroup>
                 <Label for="receipt">Receipt: </Label>
                 <Input type="textarea" id="receipt" onChange={handleControlledInputChange} required autoFocus className="form-control"
-                placeholder="Enter your Expenses image here" value={Expenses.receipt} rows="10" />
+                  placeholder="Enter your Expenses Receipt location here" value={Expenses.receipt}  />
+              </FormGroup>
+              <FormGroup>
+                <Label for="categoryId">Category: </Label>
+                <select
+                  value={Expenses.categoryId}
+                  id="categoryId"
+                  className="form-control"
+                  onChange={handleControlledInputChange}
+                >
+                  <option value="0">
+                    Select a category
+                                    </option>
+                  {categories.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))}
+                </select>
               </FormGroup>
             </Form>
             <Button color="info" onClick={saveExpenses}>Save Expenses</Button>

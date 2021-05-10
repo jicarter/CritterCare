@@ -21,11 +21,13 @@ namespace CritterCare.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Food([Type], Details)
+                        INSERT INTO Food([Type], Details, UserProfileId)
                         OUTPUT INSERTED.ID
-                        VALUES (@type)";
+                        VALUES (@type, @details, @userProfileId)";
 
-                    DbUtils.AddParameter(cmd, "@type", food);
+                    cmd.Parameters.AddWithValue("@Type", food.Type);
+                    cmd.Parameters.AddWithValue("@Details", food.Details);
+                    cmd.Parameters.AddWithValue("@UserProfileId", food.UserProfileId);
 
                     food.Id = (int)cmd.ExecuteScalar();
                 }
@@ -134,8 +136,8 @@ namespace CritterCare.Repositories
                      WHERE Id = @Id";
 
                     cmd.Parameters.AddWithValue("@Type", food.Type);
-                    cmd.Parameters.AddWithValue("@Id", food.Type);
-
+                    cmd.Parameters.AddWithValue("@Id", food.Id);
+                    cmd.Parameters.AddWithValue("@Details", food.Details);
                     cmd.ExecuteNonQuery();
                 }
             }

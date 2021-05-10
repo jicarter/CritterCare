@@ -14,27 +14,27 @@ namespace CritterCare.Repositories
 
         public MedicineRepository(IConfiguration configuration) : base(configuration) { }
 
-        public void AddMedicine(Medicine Medicine)
+        public void AddMedicine(Medicine medicine)
         {
             using (SqlConnection conn = Connection)
             {
-                conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                    INSERT INTO Medicine ([Type], Details, UserProfileId)
-                    OUTPUT INSERTED.ID
-                    VALUES (@[Type], @Details, @UserProfileId);
-                    ";
+                
+                    conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = @"
+                        INSERT INTO Medicine([Type], Details, [Use], UserProfileId)
+                        OUTPUT INSERTED.ID
+                        VALUES (@type, @details, @use, @userProfileId)";
 
-                    cmd.Parameters.AddWithValue("@[Type]", Medicine.Type);
-                    cmd.Parameters.AddWithValue("@[Details]", Medicine.Details);
-                    cmd.Parameters.AddWithValue("@UserProfileId", Medicine.UserProfileId);
-                    
-                    int newlyCreatedId = (int)cmd.ExecuteScalar();
+                        cmd.Parameters.AddWithValue("@Type", medicine.Type);
+                        cmd.Parameters.AddWithValue("@Details", medicine.Details);
+                        cmd.Parameters.AddWithValue("@Use", medicine.Use);
+                        cmd.Parameters.AddWithValue("@UserProfileId", medicine.UserProfileId);
 
-                    Medicine.Id = newlyCreatedId;
-                }
+                        medicine.Id = (int)cmd.ExecuteScalar();
+                    }
+                
             }
         }
 
@@ -159,13 +159,15 @@ namespace CritterCare.Repositories
                 {
                     cmd.CommandText = @"
                     UPDATE Medicine
-                       SET Name = @Name
+                       SET [Type] = @type,
+                           [Details] = @details,
+                           UserProfileId = @userProfileId
                      WHERE Id = @Id";
 
                     cmd.Parameters.AddWithValue("@Id", Medicine.Id);
-                    cmd.Parameters.AddWithValue("@[Type]", Medicine.Type);
-                    cmd.Parameters.AddWithValue("@[Details]", Medicine.Details);
-                    cmd.Parameters.AddWithValue("@UserProfileId", Medicine.UserProfileId);
+                    cmd.Parameters.AddWithValue("@type", Medicine.Type);
+                    cmd.Parameters.AddWithValue("@details", Medicine.Details);
+                    cmd.Parameters.AddWithValue("@userProfileId", Medicine.UserProfileId);
 
                     cmd.ExecuteNonQuery();
                 }

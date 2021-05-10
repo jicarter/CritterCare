@@ -25,16 +25,15 @@ export const FoodEdit = () => {
     const [details, setDetails] = useState("");
 
     const userProfile = sessionStorage.getItem("userProfile");
-
+    var currentUser = JSON.parse(userProfile)
 
 
 
     useEffect(() => {
         getFoodById(id).then(setFood)
-            .then(getUserFood)
     }, []);
 
-    // Once the Food has been set in state, update the form with previous post info
+   
     useEffect(() => {
 
         setType(Food.type)
@@ -54,12 +53,12 @@ export const FoodEdit = () => {
         updateFood(updatedFood).then((c) => {
             // Navigate the user back to the home route
             
-            history.push(`/Foods/${Food.critterId}`);
+            history.push(`/Food/${currentUser.id}`);
             
         });
     }
     const cancel = () => {
-        history.push(`/Foods/${id}}`);
+        history.push(`/Food/${currentUser.id}}`);
     };
 
     if (Food === null) {

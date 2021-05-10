@@ -7,6 +7,7 @@ import { MedicineProvider } from './Providers/MedicineProvider';
 import { FoodProvider } from './Providers/FoodProvider';
 import { CritterProvider } from './Providers/CritterProvider';
 import { ExpensesProvider } from './Providers/ExpensesProvider';
+import { CategoryProvider } from './Providers/CategoryProvider';
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
           <FoodProvider>
             <CritterProvider>
               <ExpensesProvider>
+              <CategoryProvider>
                 <Header />
                 <ApplicationViews />
+                </CategoryProvider>
               </ExpensesProvider>
             </CritterProvider>
           </FoodProvider>

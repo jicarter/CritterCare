@@ -13,7 +13,6 @@ export const MedicineList = () => {
   useEffect(() => {
     getUserMeds(id)
     
-    .then(console.log(Medicine))
   }, []);
 
 

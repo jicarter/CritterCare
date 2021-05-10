@@ -40,7 +40,7 @@ export const FoodForm = () => {
     userProfileId: 1
     })
     .then(setFood)
-    .then(history.push(`/Food/${userProfile.id}`))
+    .then(history.push(`/Food/${  currentUser.id}`))
   }
 
   return (
@@ -58,7 +58,7 @@ export const FoodForm = () => {
               </FormGroup>
               <FormGroup>
                 <Label for="details">Details: </Label>
-                <Input type="textarea" id="Details" onChange={handleControlledInputChange} required autoFocus className="form-control"
+                <Input type="textarea" id="details" onChange={handleControlledInputChange} required autoFocus className="form-control"
                 placeholder="Enter your Food Details here" value={Food.details} rows="10" />
               </FormGroup>
             </Form>

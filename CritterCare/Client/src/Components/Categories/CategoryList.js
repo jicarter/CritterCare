@@ -19,7 +19,6 @@ export const CategoryList = () => {
 
   return (
     <div className="container">
-      <Link to={`/`}>Home</Link>
       <div className="row justify-content-center">
         <div className="cards-column">
           {Category.map((Category) => (

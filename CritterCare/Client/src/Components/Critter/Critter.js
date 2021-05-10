@@ -20,7 +20,7 @@ const Critter = ({ Critter }) => {
         
         if (window.confirm(`Are you sure you want to delete this critter?`)) {
             deleteCritter(Critter.id).then(getAllUserCritters);
-            history.push(`/critter/${userProfile.id}`);
+            history.push(`/critter/${currentUser.id}`);
         }
     };
 

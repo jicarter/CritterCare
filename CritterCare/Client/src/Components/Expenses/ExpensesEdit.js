@@ -9,23 +9,27 @@ import {
     Button,
 } from "reactstrap";
 import { ExpensesContext } from '../../Providers/ExpensesProvider';
+import { CategoryContext } from '../../Providers/CategoryProvider'
 import { useHistory, useParams } from "react-router-dom";
 
 
 export const ExpensesEdit = () => {
 
     const { updateExpenses, getExpensesById, getUserExpenses } = useContext(ExpensesContext)
+    const { getAllCategories } = useContext(CategoryContext)
 
     const { id } = useParams();
     const [Expenses, setExpenses] = useState({});
     const history = useHistory();
-    
+
     // form field states
     const [name, setName] = useState("");
     const [store, setStore] = useState("");
     const [price, setPrice] = useState("");
     const [receipt, setReceipt] = useState("");
-   
+    const [category, setCategory] = useState("");
+    const [categories, setCategories] = useState([]);
+
     const userProfile = sessionStorage.getItem("userProfile");
     var currentUser = JSON.parse(userProfile)
 
@@ -33,7 +37,7 @@ export const ExpensesEdit = () => {
 
     useEffect(() => {
         getExpensesById(id).then(setExpenses)
-            
+            .then(getAllCategories).then(setCategories)
     }, []);
 
     // Once the Expenses has been set in state, update the form with previous post info
@@ -43,6 +47,7 @@ export const ExpensesEdit = () => {
         setStore(Expenses.store)
         setPrice(Expenses.Price)
         setReceipt(Expenses.receipt)
+        setCategory(Expenses.categoryId)
     }, [Expenses])
 
 
@@ -51,21 +56,22 @@ export const ExpensesEdit = () => {
         const updatedExpenses = {
             ...Expenses
         };
-        
+
         updatedExpenses.name = name
         updatedExpenses.store = store
         updatedExpenses.price = price
         updatedExpenses.receipt = receipt
+        updatedExpenses.categoryId = category
 
         updateExpenses(updatedExpenses).then((c) => {
             // Navigate the user back to the home route
-            
+
             history.push(`/Expenses/${currentUser.id}`);
-            
+
         });
     }
     const cancel = () => {
-        history.push(`/Expenses/${id}}`);
+        history.push(`/Expenses/${currentUser.id}}`);
     };
 
     if (Expenses === null) {
@@ -105,6 +111,24 @@ export const ExpensesEdit = () => {
                                     onChange={(e) => setReceipt(e.target.value)}
                                     value={receipt}
                                 />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="categoryId">Category: </Label>
+                                <select
+                                    value={Expenses.categoryId}
+                                    id="categoryId"
+                                    className="form-control"
+                                    onChange={(e) => setCategory(e.target.value)}
+                                >
+                                    <option value="0">
+                                        Select a category
+                                    </option>
+                                    {categories.map((c) => (
+                                        <option key={c.id} value={c.id}>
+                                            {c.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </FormGroup>
                         </Form>
                         <Button color="info" onClick={submit}>
