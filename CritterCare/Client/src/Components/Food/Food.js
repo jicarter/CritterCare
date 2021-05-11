@@ -13,10 +13,11 @@ const Food = ({ Food }) => {
   const handleDelete = () => {
         
     if (window.confirm(`Are you sure you want to delete this expense?`)) {
-        deleteFood(Food.id).then(getUserFood);
+        deleteFood(Food.id).then(getUserFood());
         history.push(`/Food/${currentUser.id}`);
     }
 };
+
 
   const editFood = () => {
     

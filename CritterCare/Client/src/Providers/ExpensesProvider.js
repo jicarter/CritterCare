@@ -14,7 +14,7 @@ export const ExpensesProvider = (props) => {
 
   const addExpenses = (Expenses) => {
     return getToken().then((token) =>
-      fetch(apiUrl, {
+      fetch("/api/Expenses", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -3,7 +3,7 @@ import { UserProfileContext } from './UserProfileProvider';
 
 export const CritterContext = React.createContext();
 const userProfile = sessionStorage.getItem("userProfile");
-var currentUser = JSON.parse(userProfile)
+var id = JSON.parse(userProfile)
 export const CritterProvider = (props) => {
   const apiUrl = "/api/Critter";
   const [Critters, setCritter] = useState([]);
@@ -60,7 +60,6 @@ export const CritterProvider = (props) => {
         }
       })
         .then((res) => res.json()))
-        //.then(r => setCritter(r)) //why does setCritters work and not have to write it like this
         .then(console.log(Critters))
 
   }

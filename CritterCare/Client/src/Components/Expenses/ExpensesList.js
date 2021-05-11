@@ -13,7 +13,7 @@ export const ExpensesList = () => {
   useEffect(() => {
     getUserExpenses(id)
     
-  }, [expenses]);
+  }, []);
 
 
   return (

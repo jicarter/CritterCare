@@ -17,7 +17,7 @@ export const CritterEdit = () => {
     const { updateCritter, getCritterById, getUserCritter } = useContext(CritterContext)
 
     const { id } = useParams();
-    const [Critter, setCritter] = useState({});
+    const [Critter, setCritter] = useState({}); //can add medicine:{name:""} inside the useState to allow critter to use nested object
     const history = useHistory();
     
     // form field states

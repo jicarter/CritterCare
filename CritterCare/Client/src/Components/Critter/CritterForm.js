@@ -13,7 +13,7 @@ import { CritterContext } from '../../Providers/CritterProvider';
 import { useHistory, useParams } from 'react-router-dom';
 
 export const CritterForm = () => {
-  const { addCritter, getCrittersByUserProfileId, userProfileId } = useContext(CritterContext)
+  const { addCritter, getCrittersByUserProfileId, getUserCritter } = useContext(CritterContext)
   const history = useHistory();
   const { id } = useParams();
   const [Critter, setCritter] = useState({
@@ -37,6 +37,10 @@ export const CritterForm = () => {
     // Parsing the JSON returned above into an object so we can use it
     var currentUser = JSON.parse(userProfile)
 
+    const refreshPage = () => {
+      getUserCritter(currentUser.id).then(history.go(0))
+  }
+
     addCritter({
     name: Critter.name,
     breed: Critter.breed,
@@ -45,6 +49,7 @@ export const CritterForm = () => {
     notes: Critter.notes,
     userProfileId: 1
     })
+    .then(refreshPage)
     .then(history.push(`/Critter/${currentUser.id}`))
   }
 

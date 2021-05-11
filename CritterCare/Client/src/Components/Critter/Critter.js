@@ -8,18 +8,21 @@ const Critter = ({ Critter }) => {
     const userProfile = sessionStorage.getItem("userProfile");
     var currentUser = JSON.parse(userProfile);
 
-    const { deleteCritter, getAllUserCritters } = useContext(CritterContext);
+    const { deleteCritter,getUserCritter } = useContext(CritterContext);
 
     const editCritter = () => {
 
         
         history.push(`/Critter/edit/${Critter.id}`);
     };
-    
+    const refreshPage = () => {
+        getUserCritter(currentUser.id).then(history.go(0))
+    }
     const handleDeleteCritter = () => {
         
         if (window.confirm(`Are you sure you want to delete this critter?`)) {
-            deleteCritter(Critter.id).then(getAllUserCritters);
+            deleteCritter(Critter.id)
+            .then(refreshPage)
             history.push(`/critter/${currentUser.id}`);
         }
     };

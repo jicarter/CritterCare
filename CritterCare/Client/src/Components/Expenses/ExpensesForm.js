@@ -31,9 +31,9 @@ export const ExpensesForm = () => {
     price: "",
     store: "",
     receipt: "",
-    categoryId: 0
+    categoryId: ""
   })
-
+console.log(Expenses);
 
   const handleControlledInputChange = (event) => {
     const newExpenses = { ...Expenses }
@@ -46,7 +46,7 @@ export const ExpensesForm = () => {
 
     addExpenses({
       name: Expenses.name,
-      price: Expenses.price,
+      price: parseInt(Expenses.price),
       store: Expenses.store,
       receipt: Expenses.receipt,
       categoryId: parseInt(Expenses.categoryId),
